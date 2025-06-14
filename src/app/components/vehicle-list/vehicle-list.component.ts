@@ -38,7 +38,7 @@ export class VehicleListComponent {
 
   constructor(private route: ActivatedRoute, private vehicleService:VehicleService){}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
       const queryParams: any = {};
       
