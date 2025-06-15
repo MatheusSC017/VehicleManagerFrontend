@@ -4,6 +4,8 @@ import { VehicleType, VehicleStatus, VehicleFuel, VehicleChange } from '../../en
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, RouterLink } from '@angular/router';
 import { environment } from '../../../environment/environment';
+import { Vehicle } from '../../interfaces/Vehicle';
+import { Pageable } from '../../interfaces/Pageable';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -34,7 +36,7 @@ export class VehicleListComponent {
 
   baseUrl = environment.baseUrl;
 
-  vehicles: any;
+  vehicles: Vehicle[] = [];
 
   constructor(private route: ActivatedRoute, private vehicleService:VehicleService){}
 
@@ -74,12 +76,12 @@ export class VehicleListComponent {
 
       if (params.has('page')) {
         queryParams.page = params.get('page');
-        this.currentPage = Number(params.get('page'));
       }
 
       this.vehicleService.getVehicles(queryParams).subscribe(data => {
         this.vehicles = data.content;
         this.totalPages = data.totalPages;
+        this.currentPage = data.number;
       });
     });
   

@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
-import { VehicleComponent } from './components/vehicle/vehicle.component';
+import { VehicleDetailComponent } from './components/vehicle-detail/vehicle-detail.component';
+import { VehicleRegisterComponent } from './components/vehicle-register/vehicle-register.component';
 
 export const routes: Routes = [
     {path:'veiculos', component:VehicleListComponent},
-    {path:'veiculos/:id', component:VehicleComponent},
+    {path:'veiculos/cadastrar', component:VehicleRegisterComponent},
+    {path:'veiculos/:id', component:VehicleDetailComponent},
 ];
