@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, RouterLink } from '@angular/router';
 import { environment } from '../../../environment/environment';
 import { Vehicle } from '../../interfaces/Vehicle';
-import { Pageable } from '../../interfaces/Pageable';
 
 @Component({
   selector: 'app-vehicle-list',
