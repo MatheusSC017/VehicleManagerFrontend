@@ -16,7 +16,7 @@
     <main class="p-6">
         <!-- Filters -->
         <div class="bg-white p-6 rounded-2xl shadow-md mb-6 max-w-7xl mx-auto">
-            <form action="/veiculos" class="flex flex-row space-x-4" method="get">
+            <form (ngSubmit)="onSubmit()" #filterForm="ngForm" class="flex flex-row space-x-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
                     <div>
@@ -24,9 +24,9 @@
                         <div class="relative">
                             <input class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     name="searchInput"
+                                    [(ngModel)]="filters.searchInput"
                                     placeholder="Buscar veículo..."
-                                    type="text"
-                                    [value]="search">
+                                    type="text">
                             <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                         </div>
                     </div>
@@ -34,9 +34,9 @@
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
                         <select class="w-full border rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                                name="status">
+                                name="status" [(ngModel)]="filters.status">
                             <option value="">Todos</option>
-                            <option *ngFor="let entry of vehicleStatusList" [value]="entry[0]" [attr.selected]="entry[0] == selectedStatus ? '' : null">
+                            <option *ngFor="let entry of vehicleStatusList" [value]="entry[0]">
                                 {{ entry[1] }}
                             </option>
                         </select>
@@ -45,9 +45,9 @@
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Tipo</label>
                         <select class="w-full border rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                                name="type">
+                                name="type" [(ngModel)]="filters.type">
                             <option value="">Todos</option>
-                            <option *ngFor="let entry of vehicleTypeList" [value]="entry[0]" [attr.selected]="entry[0] == selectedType ? '' : null">
+                            <option *ngFor="let entry of vehicleTypeList" [value]="entry[0]">
                                 {{ entry[1] }}
                             </option>
                         </select>
@@ -56,9 +56,9 @@
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Combustível</label>
                         <select class="w-full border rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                                name="fuel">
+                                name="fuel" [(ngModel)]="filters.fuel">
                             <option value="">Todos</option>
-                            <option *ngFor="let entry of vehicleFuelList" [value]="entry[0]" [attr.selected]="entry[0] == selectedFuel ? '' : null">
+                            <option *ngFor="let entry of vehicleFuelList" [value]="entry[0]">
                                 {{ entry[1] }}
                             </option>
                         </select>
@@ -68,13 +68,11 @@
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Faixa de Preço (R$)</label>
                         <div class="flex gap-2">
                             <input class="w-full border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                                    max="200000000" min="0" name="priceMin" placeholder="Mín"
-                                    required
-                                    [value]="selectedPriceMin"/>
+                                    max="200000000" min="0" name="priceMin" [(ngModel)]="filters.priceMin" placeholder="Mín"
+                                    required/>
                             <input class="w-full border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-                                    max="200000000" min="0" name="priceMax" placeholder="Máx"
-                                    required
-                                    [value]="selectedPriceMax"/>
+                                    max="200000000" min="0" name="priceMax" [(ngModel)]="filters.priceMax" placeholder="Máx"
+                                    required/>
                         </div>
                     </div>
 

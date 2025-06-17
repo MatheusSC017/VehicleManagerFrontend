@@ -1,15 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { VehicleService } from '../../services/vehicle.service';
 import { VehicleType, VehicleStatus, VehicleFuel, VehicleChange } from '../../enums/vehicle.enums';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterModule, RouterLink, Router } from '@angular/router';
 import { environment } from '../../../environment/environment';
 import { Vehicle } from '../../interfaces/Vehicle';
+import { VehicleFilters } from '../../interfaces/VehicleFilters';
 
 @Component({
   selector: 'app-vehicle-list',
   templateUrl: './vehicle-list.component.html',
-  imports: [CommonModule, RouterModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterModule, RouterLink],
 })
 export class VehicleListComponent {
   vehicleTypeList = Object.entries(VehicleType);
@@ -24,54 +26,38 @@ export class VehicleListComponent {
     MAINTENACE: VehicleStatus.MAINTENACE
   };
 
-  search: String = '';
-  selectedType: String = '';
-  selectedStatus: String = '';
-  selectedFuel: String = '';
-  selectedPriceMin: number = 0;
-  selectedPriceMax: number = 0;
   currentPage: number = 0;
   totalPages: number = 1;
+
+  filters: VehicleFilters = {
+    searchInput: '',
+    status: '',
+    type: '',
+    fuel: '',
+    priceMin: '',
+    priceMax: '',
+  };
 
   baseUrl = environment.baseUrl;
 
   vehicles: Vehicle[] = [];
 
-  constructor(private route: ActivatedRoute, private vehicleService:VehicleService){}
+  constructor(private router: Router, private route: ActivatedRoute, private vehicleService:VehicleService){}
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
       const queryParams: any = {};
-      
-      if (params.has('searchInput')) {
-        queryParams.searchInput = params.get('searchInput');
-        this.search = params.get('searchInput') || '';
-      }
 
-      if (params.has('type')) {
-        queryParams.type = params.get('type');
-        this.selectedType = params.get('type') || '';
-      }
+      const filterKeys = Object.keys(this.filters) as (keyof VehicleFilters)[];
 
-      if (params.has('status')) {
-        queryParams.status = params.get('status');
-        this.selectedStatus = params.get('status') || '';
-      }
+      filterKeys.forEach(key => {
+        if (params.has(key)) {
+          let value = params.get(key) ?? '';
 
-      if (params.has('fuel')) {
-        queryParams.fuel = params.get('fuel');
-        this.selectedFuel = params.get('fuel') || '';
-      }
-
-      if (params.has('priceMin')) {
-        queryParams.priceMin = params.get('priceMin');
-        this.selectedPriceMin = Number(params.get('priceMin'));
-      }
-
-      if (params.has('priceMax')) {
-        queryParams.priceMax = params.get('priceMax');
-        this.selectedPriceMax = Number(params.get('priceMax'));
-      }
+          this.filters[key] = value;
+          queryParams[key] = value;
+        }
+      });
 
       if (params.has('page')) {
         queryParams.page = params.get('page');
@@ -84,5 +70,17 @@ export class VehicleListComponent {
       });
     });
   
+  }
+
+  onSubmit(): void {
+    const queryParams: any = {};
+
+    for (const [key, value] of Object.entries(this.filters)) {
+      if (value) {
+        queryParams[key] = value;
+      }
+    }
+
+    this.router.navigate(['/veiculos'], { queryParams });
   }
 }
