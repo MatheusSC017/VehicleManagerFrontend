@@ -7,6 +7,7 @@ import { VehicleMultImages } from '../../interfaces/VehicleMultImages';
 import { ErrorResponse } from '../../interfaces/ErrorResponse';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { ToggleBaseComponent } from '../../shared/toggle-base.component';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
   templateUrl: './vehicle-register.component.html',
   styleUrl: './vehicle-register.component.css'
 })
-export class VehicleRegisterComponent {
+export class VehicleRegisterComponent extends ToggleBaseComponent {
   vehicleTypeList = Object.entries(VehicleType);
   vehicleStatusList = Object.entries(VehicleStatus);
   vehicleFuelList = Object.entries(VehicleFuel);
@@ -24,7 +25,10 @@ export class VehicleRegisterComponent {
   serverErrors: any = {};
   images: File[] = [];
 
-  constructor(private vehicleService: VehicleService, private router: Router) {}
+  constructor(private vehicleService: VehicleService, private router: Router) {
+    super();
+    this.activeSections['basicInfo'] = true; 
+  }
 
   onFileSelected(event: Event): void {
     const target = event.target as HTMLInputElement;
