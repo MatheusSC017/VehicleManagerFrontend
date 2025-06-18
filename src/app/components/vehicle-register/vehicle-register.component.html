@@ -52,15 +52,15 @@
                 <!-- Basic Information Section -->
                 <div class="mb-8">
                     <div class="flex items-center justify-between cursor-pointer"
-                            (click)="toggleSection('basicInfo')">
+                            (click)="toggleService.toggleSection('basicInfo')">
                         <h3 class="text-lg font-semibold text-gray-800">
                             <i class="fas fa-info-circle mr-2 text-blue-500"></i>
                             Informações Básicas
                         </h3>
-                        <i class="fas text-gray-500" [ngClass]="getIconClass('basicInfo')"></i>
+                        <i class="fas text-gray-500" [ngClass]="toggleService.getIconClass('basicInfo')"></i>
                     </div>
 
-                    <div class="form-section" [class.active]="isActive('basicInfo')">
+                    <div class="form-section" [class.active]="toggleService.isActive('basicInfo')">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                             <div>
                                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="serverErrors.brand">
@@ -192,15 +192,15 @@
                 <!-- Technical Specifications Section -->
                 <div class="mb-8">
                     <div class="flex items-center justify-between cursor-pointer"
-                            (click)="toggleSection('techSpecs')">
+                            (click)="toggleService.toggleSection('techSpecs')">
                         <h3 class="text-lg font-semibold text-gray-800">
                             <i class="fas fa-cogs mr-2 text-blue-500"></i>
                             Especificações Técnicas
                         </h3>
-                        <i class="fas text-gray-500" [ngClass]="getIconClass('techSpecs')"></i>
+                        <i class="fas text-gray-500" [ngClass]="toggleService.getIconClass('techSpecs')"></i>
                     </div>
 
-                    <div class="form-section" [class.active]="isActive('techSpecs')">
+                    <div class="form-section" [class.active]="toggleService.isActive('techSpecs')">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                             <div>
                                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
@@ -293,15 +293,15 @@
 
                 <!-- Images Section -->
                 <div class="mb-8">
-                    <div class="flex items-center justify-between cursor-pointer" (click)="toggleSection('images')">
+                    <div class="flex items-center justify-between cursor-pointer" (click)="toggleService.toggleSection('images')">
                         <h3 class="text-lg font-semibold text-gray-800">
                             <i class="fas fa-images mr-2 text-blue-500"></i>
                             Fotos do Veículo
                         </h3>
-                        <i class="fas text-gray-500" [ngClass]="getIconClass('images')"></i>
+                        <i class="fas text-gray-500" [ngClass]="toggleService.getIconClass('images')"></i>
                     </div>
 
-                    <div class="form-section" [class.active]="isActive('images')">
+                    <div class="form-section" [class.active]="toggleService.isActive('images')">
                         <div class="mt-4">
 
                             <div class="flex items-center justify-center w-full">
@@ -320,6 +320,9 @@
 
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6"
                                     id="preview-container">
+                                <div *ngFor="let preview of imagePreviewService.imagePreviews" class="relative group">
+                                    <img [src]="preview" class="h-32 w-full object-cover rounded-lg" />
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,7 @@
-export abstract class ToggleBaseComponent {
+import { Injectable } from "@angular/core";
+
+@Injectable({ providedIn: 'root' })
+export class ToggleService {
   activeSections: { [key: string]: boolean } = {};
 
   toggleSection(sectionId: string): void {

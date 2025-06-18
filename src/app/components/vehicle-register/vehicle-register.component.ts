@@ -7,7 +7,8 @@ import { VehicleMultImages } from '../../interfaces/VehicleMultImages';
 import { ErrorResponse } from '../../interfaces/ErrorResponse';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { ToggleBaseComponent } from '../../shared/toggle-base.component';
+import { ToggleService } from '../../shared/toggle.service';
+import { ImagePreviewService } from '../../shared/image-preview.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { ToggleBaseComponent } from '../../shared/toggle-base.component';
   templateUrl: './vehicle-register.component.html',
   styleUrl: './vehicle-register.component.css'
 })
-export class VehicleRegisterComponent extends ToggleBaseComponent {
+export class VehicleRegisterComponent {
   vehicleTypeList = Object.entries(VehicleType);
   vehicleStatusList = Object.entries(VehicleStatus);
   vehicleFuelList = Object.entries(VehicleFuel);
@@ -25,12 +26,18 @@ export class VehicleRegisterComponent extends ToggleBaseComponent {
   serverErrors: any = {};
   images: File[] = [];
 
-  constructor(private vehicleService: VehicleService, private router: Router) {
-    super();
-    this.activeSections['basicInfo'] = true; 
+  constructor(
+    private vehicleService: VehicleService, 
+    private router: Router, 
+    public toggleService: ToggleService,
+    public imagePreviewService: ImagePreviewService
+  ) {
+    this.toggleService.activeSections['basicInfo'] = true; 
   }
 
   onFileSelected(event: Event): void {
+    this.imagePreviewService.onFileSelected(event);
+
     const target = event.target as HTMLInputElement;
     if (target.files) {
       this.images = Array.from(target.files);
