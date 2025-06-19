@@ -1,0 +1,85 @@
+import { Component } from '@angular/core';
+import { VehicleService } from '../../services/vehicle.service';
+import { FormsModule } from '@angular/forms';
+import { VehicleType, VehicleChange, VehicleFuel, VehicleStatus } from '../../enums/vehicle.enums';
+import { CommonModule } from '@angular/common';
+import { VehicleMultImages } from '../../interfaces/VehicleMultImages';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
+import { ToggleService } from '../../shared/toggle.service';
+import { ImagePreviewService } from '../../shared/image-preview.service';
+import { environment } from '../../../environment/environment';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorResponse } from '../../interfaces/ErrorResponse';
+
+@Component({
+  selector: 'app-vehicle-update',
+  imports: [CommonModule, FormsModule, RouterModule, RouterLink],
+  templateUrl: './vehicle-update.component.html',
+  styleUrl: './vehicle-update.component.css'
+})
+export class VehicleUpdateComponent {
+  id!: number;
+  vehicle!: VehicleMultImages;
+  selectedImages: number[] = [];
+
+  baseUrl = environment.baseUrl;
+
+  vehicleTypeList = Object.entries(VehicleType);
+  vehicleStatusList = Object.entries(VehicleStatus);
+  vehicleFuelList = Object.entries(VehicleFuel);
+  vehicleChangeList = Object.entries(VehicleChange);
+  
+  serverErrors: any = {};
+  images: File[] = [];
+
+  constructor(
+    private vehicleService: VehicleService, 
+    private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    public toggleService: ToggleService,
+    public imagePreviewService: ImagePreviewService
+  ) {
+    this.toggleService.activeSections['basicInfo'] = true; 
+  }
+
+  ngOnInit(): void {
+    this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
+
+    this.vehicleService.getVehicleById(this.id).subscribe(data => {
+      this.vehicle = data;
+    });
+  }
+
+  onFileSelected(event: Event): void {
+    this.imagePreviewService.onFileSelected(event);
+
+    const target = event.target as HTMLInputElement;
+    if (target.files) {
+      this.images = Array.from(target.files);
+    }
+  }
+
+  onImageSelected(event: Event, imageId: number): void {
+    const checkbox = event.target as HTMLInputElement;
+
+    if (checkbox.checked) {
+      if (!this.selectedImages.includes(imageId)) {
+        this.selectedImages.push(imageId);
+      }
+    } else {
+      this.selectedImages = this.selectedImages.filter(id => id !== imageId);
+    }
+  }
+
+  updateVehicle(vehicle: VehicleMultImages) {
+    this.vehicleService.updateVehicle(this.id, vehicle, this.images, this.selectedImages).subscribe({
+      next: (vehicleData:VehicleMultImages) => {
+        this.router.navigate(['/veiculos']);
+      },
+      error: (httpError: HttpErrorResponse) => {
+        const errorResponse = httpError.error as ErrorResponse<VehicleMultImages>;
+        this.serverErrors = errorResponse.errors;
+      }
+    });
+  }
+}

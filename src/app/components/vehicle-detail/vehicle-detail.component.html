@@ -137,7 +137,7 @@
                 </div>
 
                 <div class="flex justify-end pt-6 border-t border-gray-200">
-                    <a routerLink="['/veiculos', vehicle.id, 'editar']">
+                    <a [routerLink]="['/veiculos', vehicle.id, 'editar']">
                         <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg flex items-center space-x-2">
                             <i class="fas fa-edit"></i>
                             <span>Editar Veículo</span>

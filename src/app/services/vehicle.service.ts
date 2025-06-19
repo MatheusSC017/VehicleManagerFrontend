@@ -47,14 +47,30 @@ export class VehicleService {
     return this.http.post<VehicleMultImages>(`${this.apiUrl}/vehicles`, formData);
   }
 
-  updateVehicle(vehicle: any, images: File[], selectedImages: number[]): Observable<any> {
+  updateVehicle(id: number, vehicle: VehicleMultImages, images: File[], selectedImages: number[]): Observable<VehicleMultImages> {
     const formData = new FormData();
-    for (let key in vehicle) {
-      formData.append(key, vehicle[key]);
-    }
+
+    formData.append('vehicleType', vehicle.vehicleType);
+    formData.append('vehicleStatus', vehicle.vehicleStatus);
+    formData.append('brand', vehicle.brand);
+    formData.append('model', vehicle.model);
+    formData.append('year', vehicle.year.toString());
+    formData.append('color', vehicle.color);
+    formData.append('plate', vehicle.plate);
+    formData.append('chassi', vehicle.chassi);
+    formData.append('mileage', vehicle.mileage.toString());
+    formData.append('price', vehicle.price.toString());
+    formData.append('vehicleFuel', vehicle.vehicleFuel);
+    formData.append('vehicleChange', vehicle.vehicleChange);
+    formData.append('doors', vehicle.doors.toString());
+    formData.append('motor', vehicle.motor);
+    formData.append('power', vehicle.power);
     images.forEach(image => formData.append('imagesInput', image));
+    console.log(Array.isArray(selectedImages));
+    console.log(selectedImages);
     selectedImages.forEach(id => formData.append('selectedImages', id.toString()));
-    return this.http.post(`${this.apiUrl}/vehicles/${vehicle.id}`, formData);
+
+    return this.http.put<VehicleMultImages>(`${this.apiUrl}/vehicles/${id}`, formData);
   }
 
   deleteVehicle(id: number): Observable<any> {

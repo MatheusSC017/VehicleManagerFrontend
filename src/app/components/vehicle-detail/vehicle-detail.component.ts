@@ -45,10 +45,10 @@ export class VehicleDetailComponent {
 
   baseUrl = environment.baseUrl;
 
-  constructor(private route: ActivatedRoute, private vehicleService:VehicleService) {}
+  constructor(private activatedRoute: ActivatedRoute, private vehicleService:VehicleService) {}
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.paramMap.get('id')!;
+    this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
   
     this.vehicleService.getVehicleById(this.id).subscribe(data => {
       this.vehicle = data;
