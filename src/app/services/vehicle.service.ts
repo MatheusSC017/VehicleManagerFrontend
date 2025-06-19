@@ -18,8 +18,8 @@ export class VehicleService {
     return this.http.get<Pageable<Vehicle>>(`${this.apiUrl}/vehicles`, { params });
   }
 
-  getVehicleById(id: number): Observable<VehicleMultImages> {
-    return this.http.get<VehicleMultImages>(`${this.apiUrl}/vehicles/${id}`);
+  getVehicleById(vehicleId: number): Observable<VehicleMultImages> {
+    return this.http.get<VehicleMultImages>(`${this.apiUrl}/vehicles/${vehicleId}`);
   }
 
   createVehicle(vehicle: VehicleMultImages, images: File[]): Observable<VehicleMultImages> {
@@ -47,7 +47,7 @@ export class VehicleService {
     return this.http.post<VehicleMultImages>(`${this.apiUrl}/vehicles`, formData);
   }
 
-  updateVehicle(id: number, vehicle: VehicleMultImages, images: File[], selectedImages: number[]): Observable<VehicleMultImages> {
+  updateVehicle(vehicleId: number, vehicle: VehicleMultImages, images: File[], selectedImages: number[]): Observable<VehicleMultImages> {
     const formData = new FormData();
 
     formData.append('vehicleType', vehicle.vehicleType);
@@ -68,12 +68,13 @@ export class VehicleService {
     images.forEach(image => formData.append('imagesInput', image));
     console.log(Array.isArray(selectedImages));
     console.log(selectedImages);
-    selectedImages.forEach(id => formData.append('selectedImages', id.toString()));
+    selectedImages.forEach(imageId => formData.append('selectedImages', imageId.toString()));
 
-    return this.http.put<VehicleMultImages>(`${this.apiUrl}/vehicles/${id}`, formData);
+    return this.http.put<VehicleMultImages>(`${this.apiUrl}/vehicles/${vehicleId}`, formData);
   }
 
-  deleteVehicle(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/vehicles/${id}`);
+  deleteVehicle(vehicleId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/vehicles/${vehicleId}`);
   }
+  
 }

@@ -45,6 +45,30 @@ export class VehicleListComponent {
   constructor(private router: Router, private route: ActivatedRoute, private vehicleService:VehicleService){}
 
   ngOnInit(): void {
+    this.getVehicles();
+  }
+
+  onSubmit(): void {
+    const queryParams: any = {};
+
+    for (const [key, value] of Object.entries(this.filters)) {
+      if (value) {
+        queryParams[key] = value;
+      }
+    }
+
+    this.router.navigate(['/veiculos'], { queryParams });
+  }
+
+  deleteVehicle(event: Event, vehicleId: number): void {
+
+    this.vehicleService.deleteVehicle(vehicleId).subscribe({
+      next: () => this.getVehicles(),
+      error: (err) => console.error(err)
+    });
+  }
+
+    getVehicles(): void {
     this.route.queryParamMap.subscribe(params => {
       const queryParams: any = {};
 
@@ -69,18 +93,5 @@ export class VehicleListComponent {
         this.currentPage = data.number;
       });
     });
-  
-  }
-
-  onSubmit(): void {
-    const queryParams: any = {};
-
-    for (const [key, value] of Object.entries(this.filters)) {
-      if (value) {
-        queryParams[key] = value;
-      }
-    }
-
-    this.router.navigate(['/veiculos'], { queryParams });
   }
 }
