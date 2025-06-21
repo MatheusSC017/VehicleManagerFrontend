@@ -18,6 +18,13 @@
                                 routerLink="/veiculos">Veículos</a>
                         </div>
                     </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                            <a class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2"
+                                [routerLink]="['/veiculos', vehicle.id]">Detalhes</a>
+                        </div>
+                    </li>
                     <li aria-current="page">
                         <div class="flex items-center">
                             <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
@@ -29,7 +36,7 @@
         </div>
 
         <div class="flex space-x-4">
-            <a routerLink="/veiculos">
+            <a [routerLink]="['/veiculos', vehicle.id]">
                 <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg flex items-center space-x-2">
                     <i class="fas fa-arrow-left"></i>
                     <span>Voltar</span>

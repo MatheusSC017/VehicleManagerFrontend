@@ -16,6 +16,10 @@ export class ClientService {
     return this.http.get<Client[]>(`${this.apiUrl}/clients`);
   }
 
+  getClient(clientId: number): Observable<Client> {
+    return this.http.get<Client>(`${this.apiUrl}/clients/${clientId}`);
+  }
+
   createClient(client: Client): Observable<Client> {
     const formData = new FormData();
 
