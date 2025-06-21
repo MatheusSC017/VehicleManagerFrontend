@@ -35,12 +35,12 @@
             
             <div *ngIf="!isSidebarCollapsed" class="mt-6 text-xs uppercase text-blue-300 px-2 menu-text">Gerenciamento</div>
 
-            <a class="menu-item flex items-center space-x-3 p-2 rounded hover:bg-blue-700" routerLink="veiculos">
+            <a class="menu-item flex items-center space-x-3 p-2 rounded hover:bg-blue-700" routerLink="/veiculos">
                 <i class="fas fa-car"></i>
                 <span *ngIf="!isSidebarCollapsed" class="menu-text">Veículos</span>
             </a>
 
-            <a class="menu-item flex items-center space-x-3 p-2 rounded hover:bg-blue-700">
+            <a class="menu-item flex items-center space-x-3 p-2 rounded hover:bg-blue-700" routerLink="/clientes"> 
                 <i class="fas fa-users"></i>
                 <span *ngIf="!isSidebarCollapsed" class="menu-text">Clientes</span>
             </a>
