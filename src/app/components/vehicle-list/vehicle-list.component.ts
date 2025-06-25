@@ -5,8 +5,8 @@ import { VehicleType, VehicleStatus, VehicleFuel, VehicleChange } from '../../en
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, RouterLink, Router } from '@angular/router';
 import { environment } from '../../../environment/environment';
-import { Vehicle } from '../../interfaces/Vehicle';
-import { VehicleFilters } from '../../interfaces/VehicleFilters';
+import { Vehicle } from '../../interfaces/vehicle';
+import { VehicleFilters } from '../../interfaces/vehicle-filters';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -68,7 +68,7 @@ export class VehicleListComponent {
     });
   }
 
-    getVehicles(): void {
+  getVehicles(): void {
     this.route.queryParamMap.subscribe(params => {
       const queryParams: any = {};
 

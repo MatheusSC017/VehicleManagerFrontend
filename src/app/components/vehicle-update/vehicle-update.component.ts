@@ -3,13 +3,13 @@ import { VehicleService } from '../../services/vehicle.service';
 import { FormsModule } from '@angular/forms';
 import { VehicleType, VehicleChange, VehicleFuel, VehicleStatus } from '../../enums/vehicle.enums';
 import { CommonModule } from '@angular/common';
-import { VehicleMultImages } from '../../interfaces/VehicleMultImages';
+import { VehicleMultImages } from '../../interfaces/vehicle-mult-images';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { ToggleService } from '../../shared/toggle.service';
 import { ImagePreviewService } from '../../shared/image-preview.service';
 import { environment } from '../../../environment/environment';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorResponse } from '../../interfaces/ErrorResponse';
+import { ErrorResponse } from '../../interfaces/error-response';
 
 @Component({
   selector: 'app-vehicle-update',

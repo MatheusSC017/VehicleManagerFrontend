@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
-import { Vehicle } from '../interfaces/Vehicle';
-import { VehicleMultImages } from '../interfaces/VehicleMultImages';
-import { Pageable } from '../interfaces/Pageable';
+import { Vehicle } from '../interfaces/vehicle';
+import { VehicleMultImages } from '../interfaces/vehicle-mult-images';
+import { Pageable } from '../interfaces/pageable';
 
 @Injectable({
   providedIn: 'root'
@@ -66,8 +66,7 @@ export class VehicleService {
     formData.append('motor', vehicle.motor);
     formData.append('power', vehicle.power);
     images.forEach(image => formData.append('imagesInput', image));
-    console.log(Array.isArray(selectedImages));
-    console.log(selectedImages);
+
     selectedImages.forEach(imageId => formData.append('selectedImages', imageId.toString()));
 
     return this.http.put<VehicleMultImages>(`${this.apiUrl}/vehicles/${vehicleId}`, formData);

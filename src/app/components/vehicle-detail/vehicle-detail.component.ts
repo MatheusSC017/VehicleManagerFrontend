@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterModule, RouterLink } from '@angular/router';
 import { VehicleService } from '../../services/vehicle.service';
 import { environment } from '../../../environment/environment';
 import { VehicleStatus, VehicleChange, VehicleFuel, VehicleType } from '../../enums/vehicle.enums';
-import { VehicleMultImages } from '../../interfaces/VehicleMultImages';
+import { VehicleMultImages } from '../../interfaces/vehicle-mult-images';
 
 @Component({
   selector: 'app-vehicle',

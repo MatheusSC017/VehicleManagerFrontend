@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { ClientService } from '../../services/client.service';
-import { Client } from '../../interfaces/Client';
+import { Client } from '../../interfaces/client';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorResponse } from '../../interfaces/ErrorResponse';
+import { ErrorResponse } from '../../interfaces/error-response';
 
 @Component({
   selector: 'app-client-form',

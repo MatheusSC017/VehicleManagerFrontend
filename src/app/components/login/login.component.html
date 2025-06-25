@@ -1,0 +1,74 @@
+<div class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <div class="login-card bg-white rounded-xl w-full max-w-md overflow-hidden">
+    <div class="bg-blue-600 text-white px-8 py-6 text-center">
+        <div class="flex items-center justify-center space-x-3 mb-2">
+        <i class="fas fa-car text-3xl"></i>
+        <span class="text-2xl font-bold">AutoGest</span>
+        </div>
+        <p class="text-blue-100">Sistema de Gestão de Veículos</p>
+    </div>
+
+    <form class="p-8" id="loginForm" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <div class="space-y-6">
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="username">Usuário</label>
+            <div class="login-input relative border rounded-lg overflow-hidden transition-all duration-200">
+            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <i class="fas fa-user"></i>
+            </div>
+            <input
+                class="w-full pl-10 pr-4 py-3 focus:outline-none"
+                id="username"
+                name="username"
+                placeholder="Digite seu usuário"
+                required
+                type="text"
+                ngModel>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="password">Senha</label>
+            <div class="login-input relative border rounded-lg overflow-hidden transition-all duration-200">
+            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <i class="fas fa-lock"></i>
+            </div>
+            <input
+                [type]="passwordInputType"
+                class="w-full pl-10 pr-10 py-3 focus:outline-none"
+                id="password"
+                name="password"
+                placeholder="Digite sua senha"
+                required
+                ngModel>
+
+            <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            >
+                <i class="fas" [ngClass]="toggleIcon"></i>
+            </button>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="errorMessage">
+            Usuário e senha inválidos.
+        </div>
+        <div class="alert alert-danger" *ngIf="false">
+            Você deslogou.
+        </div>
+
+        <button
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2"
+            type="submit"
+        >
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Entrar</span>
+        </button>
+        </div>
+    </form>
+    </div>
+</div>

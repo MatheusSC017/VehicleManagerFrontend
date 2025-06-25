@@ -1,7 +1,7 @@
 <div class="flex-1 overflow-auto">
     <header class="bg-white shadow-sm p-4 flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Adicionar Cliente</h1>
+            <h1 class="text-2xl font-bold text-gray-800">{{ title }} Cliente</h1>
             <nav aria-label="Breadcrumb" class="flex mt-1">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2">
                     <li class="inline-flex items-center">
@@ -40,7 +40,7 @@
 
     <main class="p-6">
         <div class="bg-white rounded-lg shadow p-6 max-w-xl mx-auto">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Cadastrar Cliente</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ title }} Cliente</h2>
 
             <form #clientForm="ngForm" method="post" class="space-y-4" (ngSubmit)="onSubmit(clientForm.value)">
                 <div>
