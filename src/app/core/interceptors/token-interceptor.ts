@@ -8,8 +8,6 @@ export class TokenInterceptor implements HttpInterceptor {
     const token = localStorage.getItem('jwt');
     const isLoginRequest = request.url.endsWith('/auth/login');
 
-    console.log(token);
-    console.log(isLoginRequest);
     if (!isLoginRequest && token) {
       request = request.clone({
         setHeaders: {

@@ -1,0 +1,119 @@
+<div class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <div class="login-card bg-white rounded-xl w-full max-w-md overflow-hidden shadow-lg">
+
+        <div class="bg-blue-600 text-white px-8 py-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-2">
+                <i class="fas fa-car text-3xl"></i>
+                <span class="text-2xl font-bold">Auto Gestão</span>
+            </div>
+            <p class="text-blue-100">Crie sua conta no sistema</p>
+        </div>
+
+        <form action="" class="p-6 md:p-8" id="registerForm" #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value, confirmPassword.value)">
+            <div class="space-y-4">
+
+                <div>
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="serverErrors.role">
+                        <label class="block text-sm">{{ serverErrors.role }}</label>
+                    </div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="user_role">Tipo de usuário</label>
+                    <div class="login-input relative border rounded-lg overflow-hidden transition-all duration-200">
+                        <select class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                id="user_role" name="role"
+                                required
+                                ngModel>
+                            <option value="USER" selected>Usuário</option>
+                            <option value="ADMIN">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="serverErrors.username">
+                        <label class="block text-sm">{{ serverErrors.username }}</label>
+                    </div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="username">Nome de usuário</label>
+                    <div class="login-input relative border rounded-lg overflow-hidden transition-all duration-200">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <input
+                                class="w-full pl-10 pr-4 py-2.5 focus:outline-none"
+                                id="username"
+                                placeholder="nome.usuario"
+                                required
+                                name="username"
+                                ngModel
+                                type="text"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="serverErrors.password">
+                        <label class="block text-sm">{{ serverErrors.password }}</label>
+                    </div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="password">Senha</label>
+                    <div class="login-input relative border rounded-lg overflow-hidden transition-all duration-200">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <input
+                                class="w-full pl-10 pr-10 py-2.5 focus:outline-none"
+                                id="password"
+                                placeholder="Crie uma senha"
+                                required
+                                name="password"
+                                ngModel
+                                type="password"
+                        >
+                        <button
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                id="togglePassword"
+                                type="button"
+                        >
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="mt-1 grid grid-cols-4 gap-1" style="height: 5px;">
+                        <div class="password-strength rounded" id="strength-1"></div>
+                        <div class="password-strength rounded" id="strength-2"></div>
+                        <div class="password-strength rounded" id="strength-3"></div>
+                        <div class="password-strength rounded" id="strength-4"></div>
+                    </div>
+                    <p class="text-xs text-red-500 mt-1" id="password-hint" *ngIf="!isStrong">A senha deve conter pelo menos 8
+                        caracteres, incluindo números e letras maiúsculas.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="confirmPassword">Confirmar
+                        Senha</label>
+                    <div class="login-input relative border rounded-lg overflow-hidden transition-all duration-200">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <input
+                                class="w-full pl-10 pr-4 py-2.5 focus:outline-none"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Confirme sua senha"
+                                required
+                                type="password"
+                                ngModel
+                                #confirmPassword="ngModel"
+                        >
+                    </div>
+                    <p class="text-xs text-red-500 mt-1" id="password-match" *ngIf="!isMatch">As senhas não coincidem!</p>
+                </div>
+
+                <button
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center space-x-2"
+                        id="submitBtn"
+                        type="submit"
+                >
+                    <i class="fas fa-user-plus"></i>
+                    <span>Criar conta</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

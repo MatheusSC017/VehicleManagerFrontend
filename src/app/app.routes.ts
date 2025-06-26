@@ -6,9 +6,11 @@ import { VehicleUpdateComponent } from './components/vehicle-update/vehicle-upda
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { ClientFormComponent } from './components/client-form/client-form.component';
 import { LoginComponent } from './components/login/login.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 
 export const routes: Routes = [
     {path:'login', component:LoginComponent},
+    {path:'usuarios/cadastrar', component:UserRegisterComponent},
     {path:'veiculos', component:VehicleListComponent},
     {path:'veiculos/cadastrar', component:VehicleRegisterComponent},
     {path:'veiculos/:id/editar', component:VehicleUpdateComponent},
