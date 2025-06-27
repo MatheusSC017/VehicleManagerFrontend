@@ -20,8 +20,8 @@
                     <i class="fas fa-user"></i>
                 </div>
                 <div >
-                    <div class="font-medium">Admin</div>
-                    <div class="text-xs text-blue-200">Administrador</div>
+                    <div class="font-medium">{{ role === 'USER' ? 'Usuário' : 'Admin' }}</div>
+                    <div class="text-xs text-blue-200">{{ username }}</div>
                 </div>
             </div>
             <div class="p-2">

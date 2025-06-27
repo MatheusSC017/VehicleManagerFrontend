@@ -12,6 +12,8 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   isSidebarCollapsed = false;
   isLogged = false;
+  username = "";
+  role = "";
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -22,6 +24,11 @@ export class AppComponent {
       if (!isLogged && !this.router.url.includes('/login')) {
         this.router.navigate(['/login']);
       }
+
+      this.username = localStorage.getItem('isLogged') || "";
+      this.role = localStorage.getItem('role') || "";
+      console.log(this.username);
+      console.log(this.role);
     });
   }
 

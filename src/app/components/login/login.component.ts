@@ -26,7 +26,7 @@ export class LoginComponent {
   onSubmit(user: User) {
     this.userService.login(user).subscribe({
       next: (response) => {
-        this.authService.login(response.token, user.username);
+        this.authService.login(response.token, user.username, user.role || "USER");
         this.router.navigate(['/veiculos']);
       },
       error: (httpError) => {
