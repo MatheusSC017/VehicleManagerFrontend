@@ -27,12 +27,15 @@ export class AppComponent {
 
       this.username = localStorage.getItem('isLogged') || "";
       this.role = localStorage.getItem('role') || "";
-      console.log(this.username);
-      console.log(this.role);
     });
   }
 
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

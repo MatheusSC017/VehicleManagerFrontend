@@ -7,9 +7,11 @@ export class AuthService {
   isLoggedIn$ = this.loggedIn.asObservable();
 
   login(token: string, username: string, role: string): void {
+    const expirationTime = new Date().getTime() + 60 * 60 * 1000;
     localStorage.setItem('jwt', token);
     localStorage.setItem('isLogged', username);
     localStorage.setItem('role', role);
+    localStorage.setItem('expirationTime', expirationTime.toString());
     this.loggedIn.next(true);
   }
 
@@ -17,6 +19,7 @@ export class AuthService {
     localStorage.removeItem('jwt');
     localStorage.removeItem('isLogged');
     localStorage.removeItem('role');
+    localStorage.removeItem('expirationTime')
     this.loggedIn.next(false);
   }
 }
