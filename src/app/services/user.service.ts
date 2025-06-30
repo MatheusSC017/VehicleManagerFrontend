@@ -19,4 +19,8 @@ export class UserService {
   register(user: User): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/auth/register`, user);
   }
+
+  refresh(username: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/auth/refresh`, {"username": username});
+  }
 }
