@@ -70,7 +70,7 @@ export class VehicleListComponent {
 
   getVehicles(): void {
     this.route.queryParamMap.subscribe(params => {
-      const queryParams: any = {};
+      let queryParams: any = {};
 
       const filterKeys = Object.keys(this.filters) as (keyof VehicleFilters)[];
 
