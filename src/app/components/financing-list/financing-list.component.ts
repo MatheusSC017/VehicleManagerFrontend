@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Financing } from '../../interfaces/financing';
 import { FinancingService } from '../../services/financing.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-financing-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, RouterLink],
   templateUrl: './financing-list.component.html',
   styleUrl: './financing-list.component.css'
 })
@@ -20,10 +21,17 @@ export class FinancingListComponent {
     this.getFinancings(0, 20);
   }
 
+  deleteFinancing(financingId: number): void {
+    this.financingService.delete(financingId).subscribe({
+      next: () => this.getFinancings(0, 20),
+      error: (err) => console.error(err)
+    });
+  }
+
   getFinancings(page: number, size: number): void {
     this.financingService.getAll(page, size).subscribe(data => {
       this.financings = data.content;
-      this.totalPages = data.totalPages + 1;
+      this.totalPages = data.totalPages;
       this.currentPage = data.number;
     })
   }

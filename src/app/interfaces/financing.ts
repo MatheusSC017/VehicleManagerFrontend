@@ -1,7 +1,7 @@
 export interface Financing {
     id: number,
-    client: number,
-    vehicle: number,
+    client: any,
+    vehicle: any,
 	totalAmount: number,
     downPayment: number,
     installmentCount: number,

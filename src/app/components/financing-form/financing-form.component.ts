@@ -74,7 +74,6 @@ export class FinancingFormComponent {
       error: (err) => {
         if (typeof err === 'string') return;
         const errorResponse = err.error as ErrorResponse<Financing>;
-        console.log(errorResponse);
         this.serverErrors = errorResponse?.errors ?? { general: 'Erro inesperado.' };
       }
     });  

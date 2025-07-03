@@ -60,8 +60,7 @@ export class VehicleListComponent {
     this.router.navigate(['/veiculos'], { queryParams });
   }
 
-  deleteVehicle(event: Event, vehicleId: number): void {
-
+  onDelete(vehicleId: number): void {
     this.vehicleService.deleteVehicle(vehicleId).subscribe({
       next: () => this.getVehicles(),
       error: (err) => console.error(err)

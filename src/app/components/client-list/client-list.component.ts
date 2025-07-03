@@ -18,13 +18,11 @@ export class ClientListComponent {
     this.getClients();
   }
 
-  deleteClient(event: Event, clientId: number): void {
+  onDelete(clientId: number): void {
     this.clientService.deleteClient(clientId).subscribe({
       next: () => this.getClients(),
       error: (err) => console.error(err)
     });
-
-    this.getClients();
   }
 
   getClients(): void {
