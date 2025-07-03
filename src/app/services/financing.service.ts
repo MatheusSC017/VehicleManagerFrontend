@@ -22,19 +22,19 @@ export class FinancingService {
   }
 
   get(financingId: number): Observable<Financing> {
-    return this.http.get<Financing>(`${this.apiUrl}/financing/${financingId}`)
+    return this.http.get<Financing>(`${this.apiUrl}/financings/${financingId}`)
   }
 
   create(financing: Financing): Observable<Financing> {
-    return this.http.post<Financing>(`${this.apiUrl}/financing`, financing);
+    return this.http.post<Financing>(`${this.apiUrl}/financings`, financing);
   }
 
   update(financingId: number, financing: Financing): Observable<Financing> {
-    return this.http.put<Financing>(`${this.apiUrl}/financing/${financingId}`, financing);
+    return this.http.put<Financing>(`${this.apiUrl}/financings/${financingId}`, financing);
   }
 
   delete(financingId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/financing/${financingId}`);
+    return this.http.delete<void>(`${this.apiUrl}/financings/${financingId}`);
   }
 
 }

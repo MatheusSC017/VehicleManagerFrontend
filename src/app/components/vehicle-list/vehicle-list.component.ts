@@ -87,7 +87,7 @@ export class VehicleListComponent {
         queryParams.page = params.get('page');
       }
 
-      this.vehicleService.getVehicles(queryParams).subscribe(data => {
+      this.vehicleService.getVehiclesWithImages(queryParams).subscribe(data => {
         this.vehicles = data.content;
         this.totalPages = data.totalPages;
         this.currentPage = data.number;

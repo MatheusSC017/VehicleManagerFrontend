@@ -14,8 +14,16 @@ export class VehicleService {
 
   constructor(private http: HttpClient) {}
 
+  getVehiclesWithImages(params: any): Observable<Pageable<Vehicle>> {
+    return this.http.get<Pageable<Vehicle>>(`${this.apiUrl}/vehicles/images`, { params });
+  }
+
   getVehicles(params: any): Observable<Pageable<Vehicle>> {
     return this.http.get<Pageable<Vehicle>>(`${this.apiUrl}/vehicles`, { params });
+  }
+
+  getVehicleByChassi(chassi: string): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.apiUrl}/vehicles/chassi/${chassi}`)
   }
 
   getVehicleById(vehicleId: number): Observable<VehicleMultImages> {

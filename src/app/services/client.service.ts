@@ -16,6 +16,10 @@ export class ClientService {
     return this.http.get<Client[]>(`${this.apiUrl}/clients`);
   }
 
+  getClientByEmail(email: string): Observable<Client> {
+    return this.http.get<Client>(`${this.apiUrl}/clients/email/${email}`);
+  }
+
   getClient(clientId: number): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/clients/${clientId}`);
   }

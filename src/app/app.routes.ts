@@ -8,6 +8,7 @@ import { ClientFormComponent } from './components/client-form/client-form.compon
 import { LoginComponent } from './components/login/login.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { FinancingListComponent } from './components/financing-list/financing-list.component';
+import { FinancingFormComponent } from './components/financing-form/financing-form.component';
 
 export const routes: Routes = [
     {path:'login', component:LoginComponent},
@@ -19,5 +20,6 @@ export const routes: Routes = [
     {path:'clientes', component:ClientListComponent},
     {path:'clientes/cadastrar', component:ClientFormComponent},
     {path:'clientes/:id', component:ClientFormComponent},
-    {path:'financiamentos', component:FinancingListComponent}
+    {path:'financiamentos', component:FinancingListComponent},
+    {path:'financiamentos/cadastrar', component:FinancingFormComponent}
 ];

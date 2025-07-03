@@ -25,7 +25,6 @@ export class FinancingListComponent {
       this.financings = data.content;
       this.totalPages = data.totalPages + 1;
       this.currentPage = data.number;
-      console.log(this.totalPages)
     })
   }
 
