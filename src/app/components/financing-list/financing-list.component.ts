@@ -3,6 +3,7 @@ import { Financing } from '../../interfaces/financing';
 import { FinancingService } from '../../services/financing.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule } from '@angular/router';
+import { FinancingStatus } from '../../enums/financing.enums';
 
 @Component({
   selector: 'app-financing-list',
@@ -14,6 +15,15 @@ export class FinancingListComponent {
   financings: Financing[] = [];
   currentPage: number = 0;
   totalPages: number = 1;
+
+  financingStatusList = Object.entries(FinancingStatus);
+
+  financingStatusMap: { [key: string]: string } = {
+      ACTIVE: FinancingStatus.ACTIVE,
+      PAID_OFF: FinancingStatus.PAID_OFF,
+      DEFAULTED: FinancingStatus.DEFAULTED,
+      CANCELED: FinancingStatus.CANCELED
+    };
 
   constructor(private financingService: FinancingService) {};
 

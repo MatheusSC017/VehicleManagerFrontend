@@ -66,7 +66,15 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.contractDate }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.firstInstallmentDate }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{ financing.financingStatus }}</span>
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                                    [ngClass]="{
+                                        'status-available': financing.financingStatus === 'ACTIVE',
+                                        'status-sold': financing.financingStatus === 'PAID_OFF',
+                                        'status-reserved': financing.financingStatus === 'DEFAULTED',
+                                        'status-maintenance': financing.financingStatus === 'CANCELED'
+                                    }">
+                                    {{ financingStatusMap[financing.financingStatus] }}
+                                </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <button class="text-blue-600 hover:text-blue-900 mr-3"><i class="fas fa-edit"></i></button>

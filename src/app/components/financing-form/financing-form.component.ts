@@ -9,6 +9,7 @@ import { Financing } from '../../interfaces/financing';
 import { catchError, switchMap } from 'rxjs/operators';
 import { forkJoin, throwError } from 'rxjs';
 import { ErrorResponse } from '../../interfaces/error-response';
+import { FinancingStatus } from '../../enums/financing.enums';
 
 @Component({
   selector: 'app-financing-form',
@@ -19,6 +20,8 @@ import { ErrorResponse } from '../../interfaces/error-response';
 export class FinancingFormComponent {
   title = 'Cadastrar';
   serverErrors: any = {};
+
+  financingStatusList = Object.entries(FinancingStatus);
 
   constructor(
     private vehicleService: VehicleService, 
