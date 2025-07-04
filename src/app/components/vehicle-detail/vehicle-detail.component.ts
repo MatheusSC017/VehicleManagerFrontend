@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterModule, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterModule, RouterLink, Router } from '@angular/router';
 import { VehicleService } from '../../services/vehicle.service';
 import { environment } from '../../../environment/environment';
 import { VehicleStatus, VehicleChange, VehicleFuel, VehicleType } from '../../enums/vehicle.enums';
@@ -45,13 +45,18 @@ export class VehicleDetailComponent {
 
   baseUrl = environment.baseUrl;
 
-  constructor(private activatedRoute: ActivatedRoute, private vehicleService:VehicleService) {}
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private vehicleService:VehicleService) {}
 
   ngOnInit(): void {
     this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
   
-    this.vehicleService.getVehicleById(this.id).subscribe(data => {
-      this.vehicle = data;
+    this.vehicleService.getVehicleById(this.id).subscribe({
+      next: data => {
+        this.vehicle = data;
+      },
+      error: error => {
+        this.router.navigate(['/veiculos']);
+      }
     });
 
   }
