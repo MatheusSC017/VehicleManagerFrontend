@@ -23,5 +23,6 @@ export const routes: Routes = [
     {path:'clientes/:id', component:ClientFormComponent},
     {path:'financiamentos', component:FinancingListComponent},
     {path:'financiamentos/cadastrar', component:FinancingFormComponent},
+    {path:'financiamentos/:id/editar', component:FinancingFormComponent},
     {path:'financiamentos/:id', component:FinancingDetailComponent}
 ];

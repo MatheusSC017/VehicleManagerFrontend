@@ -42,22 +42,20 @@
         <div class="bg-white rounded-lg shadow p-6">
             <form #financingForm="ngForm" (ngSubmit)="onSubmit(financingForm.value)">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Client Field -->
                     <div>
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="serverErrors.clientEmail">
                             <label class="block text-sm">{{ serverErrors.clientEmail }}</label>
                         </div>
                         <label for="client" class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
-                        <input ngModel type="email" id="email" name="clientEmail"class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Informe o email do cliente" required>
+                        <input [(ngModel)]="financingInterface.client.email" type="email" id="email" name="clientEmail"class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Informe o email do cliente" required>
                     </div>
                     
-                    <!-- Vehicle Field -->
                     <div>
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="serverErrors.vehicleChassi">
                             <label class="block text-sm">{{ serverErrors.vehicleChassi }}</label>
                         </div>
                         <label for="vehicle" class="block text-sm font-medium text-gray-700 mb-1">Veículo</label>
-                        <input ngModel type="text" id="chassi" name="vehicleChassi"class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Informe o chassi do veículo" required>
+                        <input [(ngModel)]="financingInterface.vehicle.chassi" type="text" id="chassi" name="vehicleChassi"class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Informe o chassi do veículo" required>
                     </div>
                     
                     <div>
@@ -65,7 +63,7 @@
                             <label class="block text-sm">{{ serverErrors.totalAmount }}</label>
                         </div>
                         <label for="totalAmount" class="block text-sm font-medium text-gray-700 mb-1">Valor Total (R$)</label>
-                        <input ngModel name="totalAmount" type="number" step="0.01" id="totalAmount" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="0,00">
+                        <input [(ngModel)]="financingInterface.totalAmount" name="totalAmount" type="number" step="0.01" id="totalAmount" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="0,00">
                     </div>
                     
                     <div>
@@ -73,7 +71,7 @@
                             <label class="block text-sm">{{ serverErrors.downPayment }}</label>
                         </div>
                         <label for="downPayment" class="block text-sm font-medium text-gray-700 mb-1">Entrada (R$)</label>
-                        <input ngModel name="downPayment" type="number" step="0.01" id="downPayment" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="0,00">
+                        <input [(ngModel)]="financingInterface.downPayment" name="downPayment" type="number" step="0.01" id="downPayment" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="0,00">
                     </div>
                     
                     <div>
@@ -81,7 +79,7 @@
                             <label class="block text-sm">{{ serverErrors.installmentCount }}</label>
                         </div>
                         <label for="installmentCount" class="block text-sm font-medium text-gray-700 mb-1">Número de Parcelas</label>
-                        <input ngModel name="installmentCount" type="number" step="1" id="installmentCount" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="12">
+                        <input [(ngModel)]="financingInterface.installmentCount" name="installmentCount" type="number" step="1" id="installmentCount" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="12">
                     </div>
                     
                     <div>
@@ -89,7 +87,7 @@
                             <label class="block text-sm">{{ serverErrors.installmentValue }}</label>
                         </div>
                         <label for="installmentValue" class="block text-sm font-medium text-gray-700 mb-1">Valor da Parcela (R$)</label>
-                        <input ngModel name="installmentValue" type="number" step="0.01" id="installmentValue" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="0,00">
+                        <input [(ngModel)]="financingInterface.installmentValue" name="installmentValue" type="number" step="0.01" id="installmentValue" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="0,00">
                     </div>
     
                     <div>
@@ -97,7 +95,7 @@
                             <label class="block text-sm">{{ serverErrors.annualInterestRate }}</label>
                         </div>
                         <label for="annualInterestRate" class="block text-sm font-medium text-gray-700 mb-1">Taxa de Juros Anual (%)</label>
-                        <input ngModel name="annualInterestRate" type="number" id="annualInterestRate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="10">
+                        <input [(ngModel)]="financingInterface.annualInterestRate" name="annualInterestRate" type="number" id="annualInterestRate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="10">
                     </div>
                     
                     <div>
@@ -105,7 +103,7 @@
                             <label class="block text-sm">{{ serverErrors.contractDate }}</label>
                         </div>
                         <label for="contractDate" class="block text-sm font-medium text-gray-700 mb-1">Data do Contrato</label>
-                        <input ngModel name="contractDate" type="date" id="contractDate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input [(ngModel)]="financingInterface.contractDate" name="contractDate" type="date" id="contractDate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
      
                     <div>
@@ -113,7 +111,7 @@
                             <label class="block text-sm">{{ serverErrors.firstInstallmentDate }}</label>
                         </div>
                         <label for="firstInstallmentDate" class="block text-sm font-medium text-gray-700 mb-1">Data da Primeira Parcela</label>
-                        <input ngModel name="firstInstallmentDate" type="date" id="firstInstallmentDate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input [(ngModel)]="financingInterface.firstInstallmentDate" name="firstInstallmentDate" type="date" id="firstInstallmentDate" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     
                     <div>
@@ -121,7 +119,7 @@
                             <label class="block text-sm">{{ serverErrors.financingStatus }}</label>
                         </div>
                         <label for="financingStatus" class="block text-sm font-medium text-gray-700 mb-1">Status do Financiamento</label>
-                        <select ngModel name="financingStatus" id="financingStatus" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select [(ngModel)]="financingInterface.financingStatus" name="financingStatus" id="financingStatus" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="" selected>Selecione</option>
                             <option *ngFor="let entry of financingStatusList" [value]="entry[0]">
                                 {{ entry[1] }}

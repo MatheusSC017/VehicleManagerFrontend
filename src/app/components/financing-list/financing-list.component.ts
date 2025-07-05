@@ -19,11 +19,11 @@ export class FinancingListComponent {
   financingStatusList = Object.entries(FinancingStatus);
 
   financingStatusMap: { [key: string]: string } = {
-      ACTIVE: FinancingStatus.ACTIVE,
-      PAID_OFF: FinancingStatus.PAID_OFF,
-      DEFAULTED: FinancingStatus.DEFAULTED,
-      CANCELED: FinancingStatus.CANCELED
-    };
+    ACTIVE: FinancingStatus.ACTIVE,
+    PAID_OFF: FinancingStatus.PAID_OFF,
+    DEFAULTED: FinancingStatus.DEFAULTED,
+    CANCELED: FinancingStatus.CANCELED
+  };
 
   constructor(private financingService: FinancingService) {};
 

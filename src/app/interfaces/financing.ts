@@ -1,7 +1,10 @@
+import { Client } from "./client";
+import { VehicleMinimal } from "./vehicle-minimal";
+
 export interface Financing {
     id: number,
-    client: any,
-    vehicle: any,
+    client: Client,
+    vehicle: VehicleMinimal,
 	totalAmount: number,
     downPayment: number,
     installmentCount: number,

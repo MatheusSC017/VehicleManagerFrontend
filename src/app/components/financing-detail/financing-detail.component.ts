@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FinancingService } from '../../services/financing.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { Financing } from '../../interfaces/financing';
 import { FinancingStatus } from '../../enums/financing.enums';
 
 @Component({
   selector: 'app-financing-detail',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, RouterLink],
   templateUrl: './financing-detail.component.html',
   styleUrl: './financing-detail.component.css'
 })
