@@ -45,8 +45,13 @@ export class VehicleUpdateComponent {
   ngOnInit(): void {
     this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
 
-    this.vehicleService.getVehicleById(this.id).subscribe(data => {
-      this.vehicle = data;
+    this.vehicleService.getVehicleById(this.id).subscribe({
+      next: data => {
+        this.vehicle = data;
+      },
+      error: (err) => {
+        this.router.navigate(['/veiculos']);
+      }
     });
   }
 

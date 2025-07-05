@@ -34,8 +34,13 @@ export class ClientFormComponent {
     if (this.id) {
       this.title = "Atualizar"
 
-      this.clientService.getClient(this.id).subscribe(data => {
-        this.client = data;
+      this.clientService.getClient(this.id).subscribe({
+        next: data => {
+          this.client = data;
+        },
+        error: (err) => {
+          this.router.navigate(['/clientes']);
+        }
       });
     }
   }
