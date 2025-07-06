@@ -118,8 +118,8 @@
                             [ngClass]="{
                                 'status-available': vehicle.vehicleStatus === 'AVAILABLE',
                                 'status-sold': vehicle.vehicleStatus === 'SOLD',
-                                'status-reserved': vehicle.vehicleStatus === 'REFURBISHED',
-                                'status-maintenance': vehicle.vehicleStatus === 'MAINTENACE'
+                                'status-reserved': vehicle.vehicleStatus === 'RESERVED',
+                                'status-maintenance': vehicle.vehicleStatus === 'MAINTENANCE'
                             }"
                             >
                             {{ vehicleStatusMap[vehicle.vehicleStatus] }}

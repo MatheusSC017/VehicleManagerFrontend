@@ -17,9 +17,9 @@ export class VehicleDetailComponent {
 
   vehicleStatusMap: { [key: string]: string } = {
     AVAILABLE: VehicleStatus.AVAILABLE,
-    REFURBISHED: VehicleStatus.REFURBISHED,
+    RESERVED: VehicleStatus.RESERVED,
     SOLD: VehicleStatus.SOLD,
-    MAINTENACE: VehicleStatus.MAINTENACE
+    MAINTENANCE: VehicleStatus.MAINTENANCE
   };
 
   vehicleChangeMap: { [key: string]: string } = {

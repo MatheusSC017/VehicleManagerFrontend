@@ -5,9 +5,9 @@ export enum VehicleType {
 
 export enum VehicleStatus {
   AVAILABLE = 'Disponível',
-  REFURBISHED = 'Reservado',
+  RESERVED = 'Reservado',
   SOLD = 'Vendido',
-  MAINTENACE = 'Manutenção'
+  MAINTENANCE = 'Manutenção'
 }
 
 export enum VehicleFuel {

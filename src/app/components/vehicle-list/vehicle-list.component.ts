@@ -21,9 +21,9 @@ export class VehicleListComponent {
 
   vehicleStatusMap: { [key: string]: string } = {
     AVAILABLE: VehicleStatus.AVAILABLE,
-    REFURBISHED: VehicleStatus.REFURBISHED,
+    RESERVED: VehicleStatus.RESERVED,
     SOLD: VehicleStatus.SOLD,
-    MAINTENACE: VehicleStatus.MAINTENACE
+    MAINTENANCE: VehicleStatus.MAINTENANCE
   };
 
   currentPage: number = 0;

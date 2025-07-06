@@ -77,12 +77,24 @@
                             <div class="font-medium">{{ vehicle.color }}</div>
                         </div>
                         <div class="field-card">
+                            <div class="text-sm text-gray-500">Placa</div>
+                            <div class="font-medium">{{ vehicle.plate }}</div>
+                        </div>
+                        <div class="field-card">
                             <div class="text-sm text-gray-500">Chassi</div>
                             <div class="font-medium">{{ vehicle.chassi }}</div>
                         </div>
                         <div class="field-card">
                             <div class="text-sm text-gray-500">Quilometragem</div>
                             <div class="font-medium">{{ vehicle.mileage }} km</div>
+                        </div>
+                        <div class="field-card">
+                            <div class="text-sm text-gray-500">Status</div>
+                            <div class="font-medium">{{ vehicleStatusMap[vehicle.vehicleStatus] }}</div>
+                        </div>
+                        <div class="field-card">
+                            <div class="text-sm text-gray-500">Preço</div>
+                            <div class="font-medium">R$ {{ vehicle.price }}</div>
                         </div>
                     </div>
                 </div>
