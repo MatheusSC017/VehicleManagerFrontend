@@ -144,11 +144,16 @@
                                 <p class="font-bold text-blue-600">R$ <span>{{ vehicle.price }}</span></p>
                             </div>
                             <div class="flex space-x-2">
+                                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600" (click)="openSaleModal(vehicle)" *ngIf="vehicle.vehicleStatus == 'AVAILABLE'">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+
                                 <a [routerLink]="['/veiculos', vehicle.id]">
                                     <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </a>
+
                                 <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600" (click)="onDelete(vehicle.id)">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -180,4 +185,55 @@
             </nav>
         </div>
     </main>
+    <div class="fixed z-50 inset-0 overflow-y-auto" *ngIf="showSaleModal">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="fixed inset-0 bg-black opacity-30" (click)="closeSaleModal()"></div>
+            <div class="bg-white rounded-lg shadow-lg z-10 p-6 w-full max-w-md">
+            <h2 class="text-xl font-semibold mb-4">Nova venda para {{ selectedVehicle?.brand }} {{ selectedVehicle?.model }}</h2>
+
+            <form (ngSubmit)="newSale(saleForm.value)" #saleForm="ngForm">
+                <div class="mb-4">
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="saleFormError.email">
+                        <label class="block text-sm">{{ saleFormError.email }}</label>
+                    </div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email do Cliente</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                        required
+                        ngModel
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label for="saleStatus" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select
+                        [(ngModel)]="saleStatus"
+                        name="saleStatus"
+                        id="saleStatus"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option [ngValue]="'SOLD'">Vendido</option>
+                        <option [ngValue]="'RESERVED'">Reservado</option>
+                    </select>
+                </div>
+
+                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="saleFormError.sale">
+                    <label class="block text-sm">{{ saleFormError.sale }}</label>
+                </div>
+
+                <div class="flex justify-end space-x-2">
+                <button type="button" (click)="closeSaleModal()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                    Cancelar
+                </button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    Enviar
+                </button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 </div>

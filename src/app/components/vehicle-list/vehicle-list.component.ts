@@ -7,6 +7,10 @@ import { ActivatedRoute, RouterModule, RouterLink, Router } from '@angular/route
 import { environment } from '../../../environment/environment';
 import { Vehicle } from '../../interfaces/vehicle';
 import { VehicleFilters } from '../../interfaces/vehicle-filters';
+import { SaleService } from '../../services/sale.service';
+import { ClientService } from '../../services/client.service';
+import { catchError, throwError } from 'rxjs';
+import { Client } from '../../interfaces/client';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -14,6 +18,12 @@ import { VehicleFilters } from '../../interfaces/vehicle-filters';
   imports: [CommonModule, FormsModule, RouterModule, RouterLink],
 })
 export class VehicleListComponent {
+  selectedVehicle: Vehicle | null = null;
+  showSaleModal: boolean = false;
+  saleFormError: any = {};
+
+  saleStatus: 'SOLD' | 'RESERVED' = 'SOLD';
+  
   vehicleTypeList = Object.entries(VehicleType);
   vehicleStatusList = Object.entries(VehicleStatus);
   vehicleFuelList = Object.entries(VehicleFuel);
@@ -42,7 +52,13 @@ export class VehicleListComponent {
 
   vehicles: Vehicle[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute, private vehicleService:VehicleService){}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute, 
+    private vehicleService:VehicleService,
+    private clientService: ClientService,
+    private saleService:SaleService
+  ){}
 
   ngOnInit(): void {
     this.getVehicles();
@@ -91,6 +107,44 @@ export class VehicleListComponent {
         this.totalPages = data.totalPages;
         this.currentPage = data.number;
       });
+    });
+  }
+
+  openSaleModal(vehicle: Vehicle): void {
+    if (vehicle.vehicleStatus == 'AVAILABLE') {
+      this.selectedVehicle = vehicle;
+      this.showSaleModal = true;
+    }
+  }
+
+  closeSaleModal(): void {
+    this.showSaleModal = false;
+  }
+
+  newSale(sale: any): void {
+    if (this.selectedVehicle == null) return;
+      
+    this.clientService.getClientByEmail(sale.email).pipe(
+      catchError(() => {
+        this.saleFormError['email'] = 'Cliente não encontrado';
+        return throwError(() => 'client error');
+      })
+    ).subscribe({
+      next: (client: Client) => {
+        this.saleService.create(client, this.selectedVehicle as Vehicle, sale.saleStatus).subscribe({
+          next: response => {
+            this.getVehicles();
+            this.closeSaleModal();
+          },
+          error: error => {
+            this.saleFormError['sale'] = error;
+          }
+        });
+      },
+      error: (err) => {
+        this.saleFormError['email'] = 'Cliente não encontrado';
+        console.error('Erro ao buscar cliente:', err);
+      }
     });
   }
 }
