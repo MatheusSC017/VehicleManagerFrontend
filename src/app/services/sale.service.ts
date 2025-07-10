@@ -23,6 +23,10 @@ export class SaleService {
     return this.http.get<Pageable<Sale>>(`${this.apiUrl}/sales`, { params });
   }
 
+  getAllByVehicle(vehicleId: number): Observable<Sale[]> {
+    return this.http.get<Sale[]>(`${this.apiUrl}/sales/vehicle/${vehicleId}`,);
+  }
+
   get(saleId: number): Observable<Sale> {
     return this.http.get<Sale>(`${this.apiUrl}/sales/${saleId}`)
   }

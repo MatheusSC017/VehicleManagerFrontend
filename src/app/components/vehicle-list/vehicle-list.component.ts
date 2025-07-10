@@ -11,6 +11,7 @@ import { SaleService } from '../../services/sale.service';
 import { ClientService } from '../../services/client.service';
 import { catchError, throwError } from 'rxjs';
 import { Client } from '../../interfaces/client';
+import { Sale } from '../../interfaces/sale';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -20,7 +21,9 @@ import { Client } from '../../interfaces/client';
 export class VehicleListComponent {
   selectedVehicle: Vehicle | null = null;
   showSaleModal: boolean = false;
+  showSaleHistory: boolean = false;
   saleFormError: any = {};
+  sales: Sale[] = [];
 
   saleStatus: 'SOLD' | 'RESERVED' = 'SOLD';
   
@@ -110,18 +113,29 @@ export class VehicleListComponent {
     });
   }
 
-  openSaleModal(vehicle: Vehicle): void {
+  openSaleWindow(vehicle: Vehicle): void {
+    this.selectedVehicle = vehicle;
     if (vehicle.vehicleStatus == 'AVAILABLE') {
-      this.selectedVehicle = vehicle;
       this.showSaleModal = true;
+    } else {
+      this.showSaleHistory = true;
+      this.saleService.getAllByVehicle(vehicle.id).subscribe({
+        next: sales => {
+          this.sales = sales
+        },
+        error: response => {
+          this.showSaleHistory = false;
+        }
+      })
     }
+    
   }
 
   closeSaleModal(): void {
     this.showSaleModal = false;
   }
 
-  newSale(sale: any): void {
+  manageSale(sale: any): void {
     if (this.selectedVehicle == null) return;
       
     this.clientService.getClientByEmail(sale.email).pipe(
@@ -146,5 +160,9 @@ export class VehicleListComponent {
         console.error('Erro ao buscar cliente:', err);
       }
     });
+  }
+
+  closeSaleHistory(): void {
+    this.showSaleHistory = false;  
   }
 }

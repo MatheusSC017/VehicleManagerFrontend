@@ -5,7 +5,7 @@ export interface Sale {
     id: number,
     client: Client,
     vehicle: VehicleMinimal,
-    saleDate: string,
+    salesDate: string,
     reserveDate: string,
     status: string,
 }
