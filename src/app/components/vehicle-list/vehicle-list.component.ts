@@ -12,6 +12,8 @@ import { ClientService } from '../../services/client.service';
 import { catchError, throwError } from 'rxjs';
 import { Client } from '../../interfaces/client';
 import { Sale } from '../../interfaces/sale';
+import { SaleStatus } from '../../enums/sale.enums';
+import { ErrorResponse } from '../../interfaces/error-response';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -21,16 +23,27 @@ import { Sale } from '../../interfaces/sale';
 export class VehicleListComponent {
   selectedVehicle: Vehicle | null = null;
   showSaleModal: boolean = false;
-  showSaleHistory: boolean = false;
+  saleRegister: boolean = true;
   saleFormError: any = {};
+  selectedSale: any = {
+    client: { email: '' },
+    status: 'SOLD'
+  };
   sales: Sale[] = [];
 
-  saleStatus: 'SOLD' | 'RESERVED' = 'SOLD';
+  saleStatus: string = 'SOLD';
+  saleStatusList = Object.entries(SaleStatus);
   
   vehicleTypeList = Object.entries(VehicleType);
   vehicleStatusList = Object.entries(VehicleStatus);
   vehicleFuelList = Object.entries(VehicleFuel);
   vehicleChangeList = Object.entries(VehicleChange);
+
+  saleStatusMap: { [key: string]: string } = {
+    SOLD: SaleStatus.SOLD,
+    RESERVED: SaleStatus.RESERVED,
+    CANCELED: SaleStatus.CANCELED
+  };
 
   vehicleStatusMap: { [key: string]: string } = {
     AVAILABLE: VehicleStatus.AVAILABLE,
@@ -115,20 +128,23 @@ export class VehicleListComponent {
 
   openSaleWindow(vehicle: Vehicle): void {
     this.selectedVehicle = vehicle;
-    if (vehicle.vehicleStatus == 'AVAILABLE') {
-      this.showSaleModal = true;
-    } else {
-      this.showSaleHistory = true;
-      this.saleService.getAllByVehicle(vehicle.id).subscribe({
-        next: sales => {
-          this.sales = sales
-        },
-        error: response => {
-          this.showSaleHistory = false;
+    this.sales = []
+    this.selectedSale = {
+      client: { email: '' },
+      status: 'SOLD'
+    };
+    this.saleRegister = true;
+    this.saleService.getAllByVehicle(vehicle.id).subscribe({
+      next: sales => {
+        this.sales = sales
+        if (sales.length > 0 && sales[0].status != 'CANCELED') {
+          this.saleRegister = false;
+          this.selectedSale = Object.assign({}, sales[0]);
         }
-      })
-    }
-    
+      }
+    })
+
+    this.showSaleModal = true;
   }
 
   closeSaleModal(): void {
@@ -145,15 +161,29 @@ export class VehicleListComponent {
       })
     ).subscribe({
       next: (client: Client) => {
-        this.saleService.create(client, this.selectedVehicle as Vehicle, sale.saleStatus).subscribe({
-          next: response => {
-            this.getVehicles();
-            this.closeSaleModal();
-          },
-          error: error => {
-            this.saleFormError['sale'] = error;
-          }
-        });
+        if (this.saleRegister) {
+          this.saleService.create(client, this.selectedVehicle as Vehicle, sale.saleStatus).subscribe({
+            next: response => {
+              this.getVehicles();
+              this.closeSaleModal();
+            },
+            error: error => {
+              const errorResponse = error.error as ErrorResponse<Sale>;
+              this.saleFormError = errorResponse?.errors ?? { general: 'Erro inesperado.' };
+            }
+          });
+        } else {
+            this.saleService.update(this.selectedSale.id, client, this.selectedVehicle as Vehicle, sale.saleStatus).subscribe({
+            next: response => {
+              this.getVehicles();
+              this.closeSaleModal();
+            },
+            error: error => {
+              const errorResponse = error.error as ErrorResponse<Sale>;
+              this.saleFormError = errorResponse?.errors ?? { general: 'Erro inesperado.' };
+            }
+          });
+        }
       },
       error: (err) => {
         this.saleFormError['email'] = 'Cliente não encontrado';
@@ -162,7 +192,4 @@ export class VehicleListComponent {
     });
   }
 
-  closeSaleHistory(): void {
-    this.showSaleHistory = false;  
-  }
 }
