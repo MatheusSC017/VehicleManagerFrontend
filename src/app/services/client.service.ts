@@ -12,40 +12,27 @@ export class ClientService {
 
   constructor(private http: HttpClient) {}
 
-  getClients(): Observable<Client[]> {
+  getAll(): Observable<Client[]> {
     return this.http.get<Client[]>(`${this.apiUrl}/clients`);
   }
 
-  getClientByEmail(email: string): Observable<Client> {
+  getByEmail(email: string): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/clients/email/${email}`);
   }
 
-  getClient(clientId: number): Observable<Client> {
+  get(clientId: number): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/clients/${clientId}`);
   }
 
-  createClient(client: Client): Observable<Client> {
-    const formData = new FormData();
-
-    formData.append('firstName', client.firstName);
-    formData.append('lastName', client.lastName);
-    formData.append('email', client.email);
-    formData.append('phone', client.phone);
-
-    return this.http.post<Client>(`${this.apiUrl}/clients`, formData);
+  create(client: Client): Observable<Client> {
+    return this.http.post<Client>(`${this.apiUrl}/clients`, client);
   }
 
-  updateClient(clientId: number, client: Client): Observable<Client> {
-    const formData = new FormData();
-
-    formData.append('firstName', client.firstName);
-    formData.append('lastName', client.lastName);
-    formData.append('email', client.email);
-    formData.append('phone', client.phone);
-    return this.http.put<Client>(`${this.apiUrl}/clients/${clientId}`, formData);
+  update(clientId: number, client: Client): Observable<Client> {
+    return this.http.put<Client>(`${this.apiUrl}/clients/${clientId}`, client);
   }
 
-  deleteClient(clientId: number): Observable<void> {
+  delete(clientId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/clients/${clientId}`);
   }
 }

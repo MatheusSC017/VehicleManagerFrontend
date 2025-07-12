@@ -34,7 +34,7 @@ export class ClientFormComponent {
     if (this.id) {
       this.title = "Atualizar"
 
-      this.clientService.getClient(this.id).subscribe({
+      this.clientService.get(this.id).subscribe({
         next: data => {
           this.client = data;
         },
@@ -47,7 +47,8 @@ export class ClientFormComponent {
 
   onSubmit(client: Client): void {
     if (this.id) {
-      this.clientService.updateClient(this.id, client).subscribe({
+      
+      this.clientService.update(this.id, client).subscribe({
         next: (clientData: Client) => {
           this.router.navigate(['/clientes']);
         },
@@ -57,7 +58,7 @@ export class ClientFormComponent {
         }
       })
     } else {
-      this.clientService.createClient(client).subscribe({
+      this.clientService.create(client).subscribe({
         next: (clientData: Client) => {
           this.router.navigate(['/clientes']);
         },
@@ -66,7 +67,6 @@ export class ClientFormComponent {
           this.serverErrors = errorResponse.errors;
         }
       })
-    
     }
   }
 

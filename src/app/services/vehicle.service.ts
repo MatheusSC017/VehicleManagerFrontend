@@ -14,23 +14,23 @@ export class VehicleService {
 
   constructor(private http: HttpClient) {}
 
-  getVehiclesWithImages(params: any): Observable<Pageable<Vehicle>> {
+  getAllWithImages(params: any): Observable<Pageable<Vehicle>> {
     return this.http.get<Pageable<Vehicle>>(`${this.apiUrl}/vehicles/images`, { params });
   }
 
-  getVehicles(params: any): Observable<Pageable<Vehicle>> {
+  getAll(params: any): Observable<Pageable<Vehicle>> {
     return this.http.get<Pageable<Vehicle>>(`${this.apiUrl}/vehicles`, { params });
   }
 
-  getVehicleByChassi(chassi: string): Observable<Vehicle> {
+  getByChassi(chassi: string): Observable<Vehicle> {
     return this.http.get<Vehicle>(`${this.apiUrl}/vehicles/chassi/${chassi}`)
   }
 
-  getVehicleById(vehicleId: number): Observable<VehicleMultImages> {
+  getWithImages(vehicleId: number): Observable<VehicleMultImages> {
     return this.http.get<VehicleMultImages>(`${this.apiUrl}/vehicles/${vehicleId}`);
   }
 
-  createVehicle(vehicle: VehicleMultImages, images: File[]): Observable<VehicleMultImages> {
+  create(vehicle: VehicleMultImages, images: File[]): Observable<VehicleMultImages> {
     const formData = new FormData();
 
     formData.append('vehicleType', vehicle.vehicleType);
@@ -55,7 +55,7 @@ export class VehicleService {
     return this.http.post<VehicleMultImages>(`${this.apiUrl}/vehicles`, formData);
   }
 
-  updateVehicle(vehicleId: number, vehicle: VehicleMultImages, images: File[], selectedImages: number[]): Observable<VehicleMultImages> {
+  update(vehicleId: number, vehicle: VehicleMultImages, images: File[], selectedImages: number[]): Observable<VehicleMultImages> {
     const formData = new FormData();
 
     formData.append('vehicleType', vehicle.vehicleType);
@@ -80,7 +80,7 @@ export class VehicleService {
     return this.http.put<VehicleMultImages>(`${this.apiUrl}/vehicles/${vehicleId}`, formData);
   }
 
-  deleteVehicle(vehicleId: number): Observable<void> {
+  delete(vehicleId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/vehicles/${vehicleId}`);
   }
   

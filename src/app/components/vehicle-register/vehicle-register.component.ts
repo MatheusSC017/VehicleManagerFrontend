@@ -45,7 +45,7 @@ export class VehicleRegisterComponent {
   }
 
   addVehicle(vehicle: VehicleMultImages) {
-    this.vehicleService.createVehicle(vehicle, this.images).subscribe({
+    this.vehicleService.create(vehicle, this.images).subscribe({
       next: (vehicleData:VehicleMultImages) => {
         this.router.navigate(['/veiculos']);
       },

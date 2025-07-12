@@ -50,7 +50,7 @@ export class VehicleDetailComponent {
   ngOnInit(): void {
     this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
   
-    this.vehicleService.getVehicleById(this.id).subscribe({
+    this.vehicleService.getWithImages(this.id).subscribe({
       next: data => {
         this.vehicle = data;
       },

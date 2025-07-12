@@ -45,7 +45,7 @@ export class VehicleUpdateComponent {
   ngOnInit(): void {
     this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
 
-    this.vehicleService.getVehicleById(this.id).subscribe({
+    this.vehicleService.getWithImages(this.id).subscribe({
       next: data => {
         this.vehicle = data;
       },
@@ -77,7 +77,7 @@ export class VehicleUpdateComponent {
   }
 
   updateVehicle(vehicle: VehicleMultImages) {
-    this.vehicleService.updateVehicle(this.id, vehicle, this.images, this.selectedImages).subscribe({
+    this.vehicleService.update(this.id, vehicle, this.images, this.selectedImages).subscribe({
       next: (vehicleData:VehicleMultImages) => {
         this.router.navigate(['/veiculos']);
       },

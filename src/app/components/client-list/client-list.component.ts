@@ -19,14 +19,14 @@ export class ClientListComponent {
   }
 
   onDelete(clientId: number): void {
-    this.clientService.deleteClient(clientId).subscribe({
+    this.clientService.delete(clientId).subscribe({
       next: () => this.getClients(),
       error: (err) => console.error(err)
     });
   }
 
   getClients(): void {
-    this.clientService.getClients().subscribe(data => {
+    this.clientService.getAll().subscribe(data => {
       this.clients = data;
     })
   }

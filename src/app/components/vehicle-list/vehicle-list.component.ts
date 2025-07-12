@@ -93,7 +93,7 @@ export class VehicleListComponent {
   }
 
   onDelete(vehicleId: number): void {
-    this.vehicleService.deleteVehicle(vehicleId).subscribe({
+    this.vehicleService.delete(vehicleId).subscribe({
       next: () => this.getVehicles(),
       error: (err) => console.error(err)
     });
@@ -118,7 +118,7 @@ export class VehicleListComponent {
         queryParams.page = params.get('page');
       }
 
-      this.vehicleService.getVehiclesWithImages(queryParams).subscribe(data => {
+      this.vehicleService.getAllWithImages(queryParams).subscribe(data => {
         this.vehicles = data.content;
         this.totalPages = data.totalPages;
         this.currentPage = data.number;
@@ -154,7 +154,7 @@ export class VehicleListComponent {
   manageSale(sale: any): void {
     if (this.selectedVehicle == null) return;
       
-    this.clientService.getClientByEmail(sale.email).pipe(
+    this.clientService.getByEmail(sale.email).pipe(
       catchError(() => {
         this.saleFormError['email'] = 'Cliente não encontrado';
         return throwError(() => 'client error');

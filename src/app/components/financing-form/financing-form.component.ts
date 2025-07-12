@@ -80,14 +80,14 @@ export class FinancingFormComponent {
   onSubmit(financing: any): void {
     this.serverErrors = {};
 
-    const vehicle$ = this.vehicleService.getVehicleByChassi(financing.vehicleChassi).pipe(
+    const vehicle$ = this.vehicleService.getByChassi(financing.vehicleChassi).pipe(
       catchError(() => {
         this.serverErrors['vehicleChassi'] = 'Veículo não encontrado';
         return throwError(() => 'vehicle error');
       })
     );
 
-    const client$ = this.clientService.getClientByEmail(financing.clientEmail).pipe(
+    const client$ = this.clientService.getByEmail(financing.clientEmail).pipe(
       catchError(() => {
         this.serverErrors['clientEmail'] = 'Cliente não encontrado';
         return throwError(() => 'client error');
