@@ -83,7 +83,7 @@ export class VehicleUpdateComponent {
       },
       error: (httpError: HttpErrorResponse) => {
         const errorResponse = httpError.error as ErrorResponse<VehicleMultImages>;
-        this.serverErrors = errorResponse.errors;
+        this.serverErrors = errorResponse?.errors ?? { general: 'Erro inesperado.' };
       }
     });
   }

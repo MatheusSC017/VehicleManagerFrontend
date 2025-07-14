@@ -132,4 +132,40 @@ export class FinancingFormComponent {
       }
     });  
   }
+
+  calculateInstallmentValue(): void {
+    this.serverErrors = {};
+    this.financingInterface.installmentValue = 0.0;
+
+    if (this.financingInterface.totalAmount != 0.0 && 
+      this.financingInterface.installmentCount != 0.0
+    ) {
+      if (this.financingInterface.downPayment >= this.financingInterface.totalAmount) {
+        this.serverErrors['downPayment'] = 'Valor da entrada deve ser menor que o valor total do veículo;';
+        return;
+      }
+
+      if (this.financingInterface.installmentCount <= 0) {
+        this.serverErrors['installmentCount'] = 'Quantidade de parcelas não pode ser igual ou menor que zero;';
+        return
+      }
+
+      if (this.financingInterface.annualInterestRate < 0) {
+        this.serverErrors['annualInterestRate'] = 'Taxa de juros anual não pode ser menor que zero;';
+        return
+      }
+
+      const financedAmount = this.financingInterface.totalAmount - this.financingInterface.downPayment;
+
+      const monthlyRate = this.financingInterface.annualInterestRate / 100 / 12;
+
+      if (monthlyRate === 0) {
+        this.financingInterface.installmentValue = financedAmount / this.financingInterface.installmentCount;
+        return;
+      }
+
+      const installmentValue = (financedAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -this.financingInterface.installmentCount));
+      this.financingInterface.installmentValue  = parseFloat(installmentValue.toFixed(2));
+    }
+  }
 }

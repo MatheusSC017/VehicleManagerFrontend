@@ -54,7 +54,7 @@ export class ClientFormComponent {
         },
         error: (httpError: HttpErrorResponse) => {
           const errorResponse = httpError.error as ErrorResponse<Client>;
-          this.serverErrors = errorResponse.errors;
+          this.serverErrors = errorResponse?.errors ?? { general: 'Erro inesperado.' };
         }
       })
     } else {
@@ -64,7 +64,7 @@ export class ClientFormComponent {
         },
         error: (httpError: HttpErrorResponse) => {
           const errorResponse = httpError.error as ErrorResponse<Client>;
-          this.serverErrors = errorResponse.errors;
+          this.serverErrors = errorResponse?.errors ?? { general: 'Erro inesperado.' };
         }
       })
     }
