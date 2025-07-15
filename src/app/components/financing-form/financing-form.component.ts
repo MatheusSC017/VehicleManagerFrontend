@@ -12,6 +12,7 @@ import { ErrorResponse } from '../../interfaces/error-response';
 import { FinancingStatus } from '../../enums/financing.enums';
 import { VehicleMinimal } from '../../interfaces/vehicle-minimal';
 import { Client } from '../../interfaces/client';
+import { Vehicle } from '../../interfaces/vehicle';
 
 @Component({
   selector: 'app-financing-form',
@@ -26,8 +27,12 @@ export class FinancingFormComponent {
   serverErrors: any = {};
 
   showClientSearch: boolean = false;
-  searchQuery: string = '';
+  searchClientQuery: string = '';
   clients: Client[] = [];
+
+  showVehicleSearch: boolean = false;
+  searchVehicleQuery: string = '';
+  vehicles: Vehicle[] = [];
 
   financingInterface: Financing = {
     id: 0,
@@ -176,7 +181,7 @@ export class FinancingFormComponent {
 
   openClientSearch(): void {
     this.clients = [];
-    this.searchQuery = '';
+    this.searchClientQuery = '';
     this.showClientSearch = true;
   }
 
@@ -196,4 +201,28 @@ export class FinancingFormComponent {
     this.financingInterface.client = client;
     this.showClientSearch = false;
   }
+
+  openVehicleSearch(): void {
+    this.vehicles = [];
+    this.searchVehicleQuery = '';
+    this.showVehicleSearch = true;
+  }
+
+  closeVehicleSearch(): void {
+    this.showVehicleSearch = false;
+  }
+
+  searchVehicles(searchFor: string): void {
+    this.vehicleService.search(searchFor).subscribe({
+      next: vehicles => {
+        this.vehicles = vehicles;
+      }
+    })
+  }
+
+  selectVehicle(vehicle: Vehicle): void {
+    this.financingInterface.vehicle = vehicle;
+    this.showVehicleSearch = false;
+  }
+
 }

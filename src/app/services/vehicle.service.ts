@@ -22,6 +22,13 @@ export class VehicleService {
     return this.http.get<Pageable<Vehicle>>(`${this.apiUrl}/vehicles`, { params });
   }
 
+  search(searchFor: string): Observable<Vehicle[]> {
+    const params = {
+      "searchFor": searchFor
+    };
+    return this.http.get<Vehicle[]>(`${this.apiUrl}/vehicles/search`, { params });
+  }
+
   getByChassi(chassi: string): Observable<Vehicle> {
     return this.http.get<Vehicle>(`${this.apiUrl}/vehicles/chassi/${chassi}`)
   }
