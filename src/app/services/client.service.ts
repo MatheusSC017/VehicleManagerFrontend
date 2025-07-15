@@ -16,6 +16,13 @@ export class ClientService {
     return this.http.get<Client[]>(`${this.apiUrl}/clients`);
   }
 
+  search(searchFor: string): Observable<Client[]> {
+    const params = {
+      "searchFor": searchFor
+    };
+    return this.http.get<Client[]>(`${this.apiUrl}/clients/search`, { params });
+  }
+
   getByEmail(email: string): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/clients/email/${email}`);
   }

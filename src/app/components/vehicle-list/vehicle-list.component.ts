@@ -128,7 +128,7 @@ export class VehicleListComponent {
 
   openSaleWindow(vehicle: Vehicle): void {
     this.selectedVehicle = vehicle;
-    this.sales = []
+    this.sales = [];
     this.selectedSale = {
       client: { email: '' },
       status: 'SOLD'
@@ -136,7 +136,7 @@ export class VehicleListComponent {
     this.saleRegister = true;
     this.saleService.getAllByVehicle(vehicle.id).subscribe({
       next: sales => {
-        this.sales = sales
+        this.sales = sales;
         if (sales.length > 0 && sales[0].status != 'CANCELED') {
           this.saleRegister = false;
           this.selectedSale = Object.assign({}, sales[0]);

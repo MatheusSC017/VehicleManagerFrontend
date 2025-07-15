@@ -47,7 +47,25 @@
                             <label class="block text-sm">{{ serverErrors.clientEmail }}</label>
                         </div>
                         <label for="client" class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
-                        <input [(ngModel)]="financingInterface.client.email" type="email" id="email" name="clientEmail"class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Informe o email do cliente" required>
+                        <div class="relative w-full">
+                            <input 
+                                [(ngModel)]="financingInterface.client.email" 
+                                type="email" 
+                                id="email" 
+                                name="clientEmail"
+                                class="w-full px-4 py-2 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                placeholder="Informe o email do cliente" 
+                                required
+                            >
+                            
+                            <button 
+                                type="button" 
+                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-blue-600"
+                                (click)="openClientSearch()"
+                            >
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
                     
                     <div>
@@ -141,4 +159,44 @@
             </form>
         </div>
     </main>
+
+    <div class="fixed z-50 inset-0 overflow-y-auto" *ngIf="showClientSearch">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="fixed inset-0 bg-black opacity-30" (click)="closeClientSearch()"></div>
+            <div class="bg-white rounded-lg shadow-lg z-10 p-6 w-full max-w-md">
+                <h2 class="text-xl font-semibold mb-4">Buscar cliente</h2>
+                <div class="mb-4">
+                    <input
+                    type="text"
+                    placeholder="Buscar por nome, sobrenome ou telefone"
+                    [(ngModel)]="searchQuery"
+                    class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" (click)="closeClientSearch()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                        Cancelar
+                    </button>
+                    <button type="submit" (click)="searchClients(searchQuery)" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        Buscar
+                    </button>
+                </div>
+
+                <div *ngIf="clients.length > 0" class="mt-4 max-h-64 overflow-y-auto border border-gray-200 rounded-md p-3 space-y-3">
+                    <div *ngFor="let client of clients" class="border-b pb-2">
+                        <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
+                            <p><strong>Nome:</strong> {{ client.firstName }} {{ client.lastName }}</p>
+                            <p><strong>E-mail:</strong> {{ client.email }}</p>
+                            <p><strong>Telefone:</strong> {{ client.phone }}</p>
+                            <p>
+                                <button (click)="selectClient(client)" type="submit" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                                    Selecionar
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

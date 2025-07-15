@@ -11,6 +11,7 @@ import { forkJoin, throwError } from 'rxjs';
 import { ErrorResponse } from '../../interfaces/error-response';
 import { FinancingStatus } from '../../enums/financing.enums';
 import { VehicleMinimal } from '../../interfaces/vehicle-minimal';
+import { Client } from '../../interfaces/client';
 
 @Component({
   selector: 'app-financing-form',
@@ -24,29 +25,33 @@ export class FinancingFormComponent {
   currentVehicle!: VehicleMinimal;
   serverErrors: any = {};
 
+  showClientSearch: boolean = false;
+  searchQuery: string = '';
+  clients: Client[] = [];
+
   financingInterface: Financing = {
     id: 0,
     client: {
       id: 0,
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
     },
     vehicle: {
       id: 0,
-      model: "",
-      brand: "",
-      chassi: ""
+      model: '',
+      brand: '',
+      chassi: ''
     },
     totalAmount: 0.0,
     downPayment: 0.0,
     installmentCount: 0.0,
     installmentValue: 0.0,
     annualInterestRate: 0.0,
-    contractDate: "",
-    firstInstallmentDate: "",
-    financingStatus: "",
+    contractDate: '',
+    firstInstallmentDate: '',
+    financingStatus: '',
   };
 
   financingStatusList = Object.entries(FinancingStatus);
@@ -63,7 +68,7 @@ export class FinancingFormComponent {
     this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
 
     if (this.id) {
-      this.title = "Atualizar"
+      this.title = 'Atualizar'
 
       this.financingService.get(this.id).subscribe({
         next: data => {
@@ -167,5 +172,28 @@ export class FinancingFormComponent {
       const installmentValue = (financedAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -this.financingInterface.installmentCount));
       this.financingInterface.installmentValue  = parseFloat(installmentValue.toFixed(2));
     }
+  }
+
+  openClientSearch(): void {
+    this.clients = [];
+    this.searchQuery = '';
+    this.showClientSearch = true;
+  }
+
+  closeClientSearch(): void {
+    this.showClientSearch = false;
+  }
+
+  searchClients(searchFor: string): void {
+    this.clientService.search(searchFor).subscribe({
+      next: clients => {
+        this.clients = clients;
+      }
+    })
+  }
+
+  selectClient(client: Client): void {
+    this.financingInterface.client = client;
+    this.showClientSearch = false;
   }
 }
