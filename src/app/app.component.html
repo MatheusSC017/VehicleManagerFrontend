@@ -74,7 +74,11 @@
         </div>
     </div>
 
-    <div [class.ml-64]="isLogged" class="flex-1">
+    <div [ngClass]="{
+        'ml-0': !isLogged,
+        'ml-20': isLogged && isSidebarCollapsed,
+        'ml-64': isLogged && !isSidebarCollapsed
+    }" class="flex-1 max-w-full overflow-x-hidden">
         <router-outlet />
     </div>
 </div>

@@ -32,13 +32,12 @@
         </div>
     </header>
 
-    <div class="p-6">
+    <main class="p-6 w-full max-w-full">
 
-        <div class="bg-white rounded-lg shadow overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200">
+        <div class="bg-white rounded-lg shadow p-4 max-w-full overflow-x-auto">
+            <table class="w-full table-auto divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Veículo</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor Total</th>
@@ -55,7 +54,6 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @for(financing of financings; track financing.id) {
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ financing.client.firstName }} {{ financing.client.lastName }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.vehicle.brand }} {{ financing.vehicle.model }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.totalAmount }}</td>
@@ -119,5 +117,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </div>
