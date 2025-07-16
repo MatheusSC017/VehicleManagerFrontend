@@ -9,6 +9,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { ToggleService } from '../../shared/toggle.service';
 import { ImagePreviewService } from '../../shared/image-preview.service';
+import { FileService } from '../../services/file.service';
+import { Vehicle } from '../../interfaces/vehicle';
 
 
 @Component({
@@ -28,6 +30,7 @@ export class VehicleRegisterComponent {
 
   constructor(
     private vehicleService: VehicleService, 
+    private fileService: FileService,
     private router: Router, 
     public toggleService: ToggleService,
     public imagePreviewService: ImagePreviewService
@@ -44,10 +47,15 @@ export class VehicleRegisterComponent {
     }
   }
 
-  addVehicle(vehicle: VehicleMultImages) {
-    this.vehicleService.create(vehicle, this.images).subscribe({
-      next: (vehicleData:VehicleMultImages) => {
-        this.router.navigate(['/veiculos']);
+  addVehicle(vehicle: Vehicle) {
+    this.vehicleService.create(vehicle).subscribe({
+      next: (vehicleData: Vehicle) => {
+        this.fileService.create(vehicleData.id, this.images).subscribe({
+          next: response => {
+            this.router.navigate(['/veiculos']);
+          }
+        });
+        
       },
       error: (httpError: HttpErrorResponse) => {
         const errorResponse = httpError.error as ErrorResponse<VehicleMultImages>;
