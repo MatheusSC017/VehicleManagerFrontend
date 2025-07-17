@@ -38,47 +38,11 @@ export class VehicleService {
   }
 
   create(vehicle: Vehicle): Observable<Vehicle> {
-    const formData = new FormData();
-
-    formData.append('vehicleType', vehicle.vehicleType);
-    formData.append('vehicleStatus', vehicle.vehicleStatus);
-    formData.append('brand', vehicle.brand);
-    formData.append('model', vehicle.model);
-    formData.append('year', vehicle.year.toString());
-    formData.append('color', vehicle.color);
-    formData.append('plate', vehicle.plate);
-    formData.append('chassi', vehicle.chassi);
-    formData.append('mileage', vehicle.mileage.toString());
-    formData.append('price', vehicle.price.toString());
-    formData.append('vehicleFuel', vehicle.vehicleFuel);
-    formData.append('vehicleChange', vehicle.vehicleChange);
-    formData.append('doors', vehicle.doors.toString());
-    formData.append('motor', vehicle.motor);
-    formData.append('power', vehicle.power);
-
-    return this.http.post<Vehicle>(`${this.apiUrl}/vehicles`, formData);
+    return this.http.post<Vehicle>(`${this.apiUrl}/vehicles`, vehicle);
   }
 
-  update(vehicleId: number, vehicle: VehicleMultImages): Observable<VehicleMultImages> {
-    const formData = new FormData();
-
-    formData.append('vehicleType', vehicle.vehicleType);
-    formData.append('vehicleStatus', vehicle.vehicleStatus);
-    formData.append('brand', vehicle.brand);
-    formData.append('model', vehicle.model);
-    formData.append('year', vehicle.year.toString());
-    formData.append('color', vehicle.color);
-    formData.append('plate', vehicle.plate);
-    formData.append('chassi', vehicle.chassi);
-    formData.append('mileage', vehicle.mileage.toString());
-    formData.append('price', vehicle.price.toString());
-    formData.append('vehicleFuel', vehicle.vehicleFuel);
-    formData.append('vehicleChange', vehicle.vehicleChange);
-    formData.append('doors', vehicle.doors.toString());
-    formData.append('motor', vehicle.motor);
-    formData.append('power', vehicle.power);
-
-    return this.http.put<VehicleMultImages>(`${this.apiUrl}/vehicles/${vehicleId}`, formData);
+  update(vehicleId: number, vehicle: Vehicle): Observable<Vehicle> {
+    return this.http.put<Vehicle>(`${this.apiUrl}/vehicles/${vehicleId}`, vehicle);
   }
 
   delete(vehicleId: number): Observable<void> {

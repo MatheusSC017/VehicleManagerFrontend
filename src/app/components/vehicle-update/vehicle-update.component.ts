@@ -11,6 +11,7 @@ import { environment } from '../../../environment/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorResponse } from '../../interfaces/error-response';
 import { FileService } from '../../services/file.service';
+import { Vehicle } from '../../interfaces/vehicle';
 
 @Component({
   selector: 'app-vehicle-update',
@@ -78,9 +79,9 @@ export class VehicleUpdateComponent {
     }
   }
 
-  updateVehicle(vehicle: VehicleMultImages) {
+  updateVehicle(vehicle: Vehicle) {
     this.vehicleService.update(this.id, vehicle).subscribe({
-      next: (vehicleData:VehicleMultImages) => {
+      next: (vehicleData: Vehicle) => {
         this.fileService.update(vehicleData.id, this.images, this.selectedImages).subscribe({
           next: response => {
             this.router.navigate(['/veiculos']);
