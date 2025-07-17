@@ -4,10 +4,11 @@ import { VehicleService } from '../../services/vehicle.service';
 import { environment } from '../../../environment/environment';
 import { VehicleStatus, VehicleChange, VehicleFuel, VehicleType } from '../../enums/vehicle.enums';
 import { VehicleMultImages } from '../../interfaces/vehicle-mult-images';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-vehicle',
-  imports: [RouterModule, RouterLink],
+  imports: [CommonModule, RouterModule, RouterLink],
   templateUrl: './vehicle-detail.component.html',
   styleUrl: './vehicle-detail.component.css'
 })

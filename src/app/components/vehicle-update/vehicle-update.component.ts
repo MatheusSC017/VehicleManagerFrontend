@@ -10,6 +10,7 @@ import { ImagePreviewService } from '../../shared/image-preview.service';
 import { environment } from '../../../environment/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorResponse } from '../../interfaces/error-response';
+import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-vehicle-update',
@@ -34,6 +35,7 @@ export class VehicleUpdateComponent {
 
   constructor(
     private vehicleService: VehicleService, 
+    private fileService: FileService,
     private router: Router, 
     private activatedRoute: ActivatedRoute,
     public toggleService: ToggleService,
@@ -77,9 +79,13 @@ export class VehicleUpdateComponent {
   }
 
   updateVehicle(vehicle: VehicleMultImages) {
-    this.vehicleService.update(this.id, vehicle, this.images, this.selectedImages).subscribe({
+    this.vehicleService.update(this.id, vehicle).subscribe({
       next: (vehicleData:VehicleMultImages) => {
-        this.router.navigate(['/veiculos']);
+        this.fileService.update(vehicleData.id, this.images, this.selectedImages).subscribe({
+          next: response => {
+            this.router.navigate(['/veiculos']);
+          }
+        });
       },
       error: (httpError: HttpErrorResponse) => {
         const errorResponse = httpError.error as ErrorResponse<VehicleMultImages>;

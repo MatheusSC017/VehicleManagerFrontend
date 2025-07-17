@@ -59,7 +59,7 @@ export class VehicleService {
     return this.http.post<Vehicle>(`${this.apiUrl}/vehicles`, formData);
   }
 
-  update(vehicleId: number, vehicle: VehicleMultImages, images: File[], selectedImages: number[]): Observable<VehicleMultImages> {
+  update(vehicleId: number, vehicle: VehicleMultImages): Observable<VehicleMultImages> {
     const formData = new FormData();
 
     formData.append('vehicleType', vehicle.vehicleType);
@@ -77,9 +77,6 @@ export class VehicleService {
     formData.append('doors', vehicle.doors.toString());
     formData.append('motor', vehicle.motor);
     formData.append('power', vehicle.power);
-    images.forEach(image => formData.append('imagesInput', image));
-
-    selectedImages.forEach(imageId => formData.append('selectedImages', imageId.toString()));
 
     return this.http.put<VehicleMultImages>(`${this.apiUrl}/vehicles/${vehicleId}`, formData);
   }

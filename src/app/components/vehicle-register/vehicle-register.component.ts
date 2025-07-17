@@ -55,7 +55,6 @@ export class VehicleRegisterComponent {
             this.router.navigate(['/veiculos']);
           }
         });
-        
       },
       error: (httpError: HttpErrorResponse) => {
         const errorResponse = httpError.error as ErrorResponse<VehicleMultImages>;

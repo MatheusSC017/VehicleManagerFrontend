@@ -21,5 +21,15 @@ export class FileService {
     return this.http.post<void>(`${this.apiUrl}/files`, formData);
   }
 
+  update(vehicleId: number, images: File[], selectedImages: number[]): Observable<void> {
+    const formData = new FormData();
+    formData.append('vehicleId', vehicleId.toString());
+    images.forEach(image => formData.append('imagesInput', image));
+    
+    selectedImages.forEach(imageId => formData.append('selectedImages', imageId.toString()));
+
+    return this.http.put<void>(`${this.apiUrl}/files/${vehicleId}`, formData);
+  }
+
 }
 
