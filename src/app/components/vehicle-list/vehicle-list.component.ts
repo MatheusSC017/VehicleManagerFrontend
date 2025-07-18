@@ -33,6 +33,9 @@ export class VehicleListComponent {
   };
   sales: Sale[] = [];
 
+  showMaintenanceModal: boolean = false;
+  maintenances: Maintenance[] = [];
+
   saleStatus: string = 'SOLD';
   saleStatusList = Object.entries(SaleStatus);
   
@@ -195,25 +198,42 @@ export class VehicleListComponent {
     });
   }
 
-  manageMaintenance(vehicle: Vehicle): void {
+  openMaintenanceModal(vehicle: Vehicle) {
+    this.selectedVehicle = vehicle;
+    this.showMaintenanceModal = true;
+    this.maintenanceService.getAllByVehicle(vehicle.id).subscribe({
+        next: maintenances => {
+          this.maintenances = maintenances;
+        }
+    });
+  }
+
+  closeMaintenanceModal() {
+    this.showMaintenanceModal = false;
+    this.maintenances = [];
+    this.selectedVehicle = null;
+  }
+
+  manageMaintenance(): void {
+    const vehicle = this.selectedVehicle;
+    if (vehicle == null) return;
+
     if (vehicle.vehicleStatus == 'AVAILABLE') {
       this.maintenanceService.create(vehicle.id).subscribe({
         next: (maintenance: Maintenance) => {
           vehicle.vehicleStatus = 'MAINTENANCE';
+          this.closeMaintenanceModal();
         }
       });
     } else {
-      this.maintenanceService.getAllByVehicle(vehicle.id).subscribe({
-        next: maintenances => {
-          if (maintenances.length > 0 && maintenances[0].endDate != '') {
-            this.maintenanceService.delete(maintenances[0].id).subscribe({
-              next: response => {
-                vehicle.vehicleStatus = 'AVAILABLE';
-              }
-            })
+      if (this.maintenances.length > 0 && this.maintenances[0].endDate != '') {
+        this.maintenanceService.delete(this.maintenances[0].id).subscribe({
+          next: response => {
+            vehicle.vehicleStatus = 'AVAILABLE';
+            this.closeMaintenanceModal();
           }
-        }
-      })
+        })
+      }
     }
   }
 

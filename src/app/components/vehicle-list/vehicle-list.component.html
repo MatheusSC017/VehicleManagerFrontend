@@ -144,7 +144,7 @@
                                 <p class="font-bold text-blue-600">R$ <span>{{ vehicle.price }}</span></p>
                             </div>
                             <div class="flex space-x-2">
-                                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600" (click)="manageMaintenance(vehicle)">
+                                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600" (click)="openMaintenanceModal(vehicle)">
                                     <i class="fas fa-wrench"></i>
                                 </button>
 
@@ -189,6 +189,7 @@
             </nav>
         </div>
     </main>
+    <!-- Sales Interface -->
     <div class="fixed z-50 inset-0 overflow-y-auto" *ngIf="showSaleModal">
         <div class="flex items-center justify-center min-h-screen px-4">
             <div class="fixed inset-0 bg-black opacity-30" (click)="closeSaleModal()"></div>
@@ -251,6 +252,45 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <!-- Maintenance Interface -->
+     <div class="fixed z-50 inset-0 overflow-y-auto" *ngIf="showMaintenanceModal">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="fixed inset-0 bg-black opacity-30" (click)="closeMaintenanceModal()"></div>
+            <div class="bg-white rounded-lg shadow-lg z-10 p-6 w-full max-w-md">
+                <h2 class="text-xl font-semibold mb-4">{{ selectedVehicle?.vehicleStatus === 'AVAILABLE' ? 'Iniciar' : 'Finalizar' }} manutenção para {{ selectedVehicle?.brand }} {{ selectedVehicle?.model }}</h2> 
+                <div class="mb-4">
+                    <label for="info" class="block text-sm font-medium text-gray-700">Informações adicionais</label>
+                    <input
+                        type="text"
+                        id="info"
+                        name="info"
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                        required
+                    />
+                </div>
+
+                <div class="flex justify-end space-x-2">
+                    <button type="button" (click)="closeMaintenanceModal()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" (click)="manageMaintenance()">
+                        Enviar
+                    </button>
+                </div>
+                
+                <h2 class="text-xl font-semibold mb-4">Histórico</h2>
+
+                <div *ngIf="maintenances.length > 0" class="mt-4 max-h-64 overflow-y-auto border border-gray-200 rounded-md p-3 space-y-3">
+                    <div *ngFor="let maintenance of maintenances" class="border-b pb-2">
+                        <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
+                            <p><strong>Data de ínicio:</strong> {{ maintenance.startDate | date:'dd/MM/yyyy' }}</p>
+                            <p><strong>Data de fim:</strong> {{ maintenance.endDate | date:'dd/MM/yyyy' }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
