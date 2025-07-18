@@ -34,14 +34,14 @@
 
     <main class="p-6">
         <!-- Filters -->
-        <div class="bg-white p-6 rounded-2xl shadow-md mb-6 max-w-7xl mx-auto">
+        <div class=" bg-white p-6 rounded-2xl shadow-md mb-6">
             <form (ngSubmit)="onSubmit()" #filterForm="ngForm" class="flex flex-row space-x-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Persquisar por</label>
                         <div class="relative">
-                            <input class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            <input class="w-full border rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     name="searchInput"
                                     [(ngModel)]="filters.searchInput"
                                     placeholder="Buscar veículo..."
@@ -86,16 +86,16 @@
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Faixa de Preço (R$)</label>
                         <div class="flex gap-2">
-                            <input class="w-full border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                            <input class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                                     max="200000000" min="0" name="priceMin" [(ngModel)]="filters.priceMin" placeholder="Mín"
                                     required/>
-                            <input class="w-full border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                            <input class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                                     max="200000000" min="0" name="priceMax" [(ngModel)]="filters.priceMax" placeholder="Máx"
                                     required/>
                         </div>
                     </div>
 
-                    <div class="sm:col-span-2 md:col-span-3 lg:col-span-4 flex justify-end">
+                    <div class="md:col-span-2 lg:col-span-3 xl:col-span-4 flex justify-end">
                         <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-xl shadow transition"
                                 type="submit">
                             Aplicar Filtros
@@ -144,6 +144,10 @@
                                 <p class="font-bold text-blue-600">R$ <span>{{ vehicle.price }}</span></p>
                             </div>
                             <div class="flex space-x-2">
+                                <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600" (click)="manageMaintenance(vehicle)">
+                                    <i class="fas fa-wrench"></i>
+                                </button>
+
                                 <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600" (click)="openSaleWindow(vehicle)">
                                     <i class="fas fa-envelope"></i>
                                 </button>

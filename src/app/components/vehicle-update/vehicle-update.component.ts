@@ -46,6 +46,7 @@ export class VehicleUpdateComponent {
   }
 
   ngOnInit(): void {
+    this.imagePreviewService.imagePreviews = [];
     this.id = +this.activatedRoute.snapshot.paramMap.get('id')!;
 
     this.vehicleService.getWithImages(this.id).subscribe({

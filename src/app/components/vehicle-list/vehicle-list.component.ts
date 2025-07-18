@@ -14,6 +14,8 @@ import { Client } from '../../interfaces/client';
 import { Sale } from '../../interfaces/sale';
 import { SaleStatus } from '../../enums/sale.enums';
 import { ErrorResponse } from '../../interfaces/error-response';
+import { MaintenanceService } from '../../services/maintenance.service';
+import { Maintenance } from '../../interfaces/maintenance';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -71,9 +73,10 @@ export class VehicleListComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute, 
-    private vehicleService:VehicleService,
+    private vehicleService: VehicleService,
     private clientService: ClientService,
-    private saleService:SaleService
+    private saleService: SaleService,
+    private maintenanceService: MaintenanceService
   ){}
 
   ngOnInit(): void {
@@ -190,6 +193,28 @@ export class VehicleListComponent {
         console.error('Erro ao buscar cliente:', err);
       }
     });
+  }
+
+  manageMaintenance(vehicle: Vehicle): void {
+    if (vehicle.vehicleStatus == 'AVAILABLE') {
+      this.maintenanceService.create(vehicle.id).subscribe({
+        next: (maintenance: Maintenance) => {
+          vehicle.vehicleStatus = 'MAINTENANCE';
+        }
+      });
+    } else {
+      this.maintenanceService.getAllByVehicle(vehicle.id).subscribe({
+        next: maintenances => {
+          if (maintenances.length > 0 && maintenances[0].endDate != '') {
+            this.maintenanceService.delete(maintenances[0].id).subscribe({
+              next: response => {
+                vehicle.vehicleStatus = 'AVAILABLE';
+              }
+            })
+          }
+        }
+      })
+    }
   }
 
 }
