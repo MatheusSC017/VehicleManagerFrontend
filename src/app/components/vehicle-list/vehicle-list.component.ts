@@ -35,6 +35,7 @@ export class VehicleListComponent {
 
   showMaintenanceModal: boolean = false;
   maintenances: Maintenance[] = [];
+  maintenanceAdditionalInfo = '';
 
   saleStatus: string = 'SOLD';
   saleStatusList = Object.entries(SaleStatus);
@@ -201,6 +202,7 @@ export class VehicleListComponent {
   openMaintenanceModal(vehicle: Vehicle) {
     this.selectedVehicle = vehicle;
     this.showMaintenanceModal = true;
+    this.maintenanceAdditionalInfo = '';
     this.maintenanceService.getAllByVehicle(vehicle.id).subscribe({
         next: maintenances => {
           this.maintenances = maintenances;
@@ -219,7 +221,7 @@ export class VehicleListComponent {
     if (vehicle == null) return;
 
     if (vehicle.vehicleStatus == 'AVAILABLE') {
-      this.maintenanceService.create(vehicle.id).subscribe({
+      this.maintenanceService.create(vehicle.id, this.maintenanceAdditionalInfo).subscribe({
         next: (maintenance: Maintenance) => {
           vehicle.vehicleStatus = 'MAINTENANCE';
           this.closeMaintenanceModal();

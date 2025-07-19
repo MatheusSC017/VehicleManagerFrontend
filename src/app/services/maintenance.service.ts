@@ -29,9 +29,10 @@ export class MaintenanceService {
     return this.http.get<Maintenance>(`${this.apiUrl}/maintenance/${saleId}`)
   }
 
-  create(vehicleId: number): Observable<Maintenance> {
+  create(vehicleId: number, additionalInfo: string): Observable<Maintenance> {
     let requestBody: any = {
-      'vehicleId': vehicleId
+      'vehicleId': vehicleId,
+      'additionalInfo': additionalInfo
     };
     return this.http.post<Maintenance>(`${this.apiUrl}/maintenance`, requestBody);
   }
