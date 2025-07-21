@@ -103,9 +103,10 @@
                         <button class="z-10 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
                             *ngFor="let i of [].constructor(totalPages); let idx = index"
                             [ngClass]="{
-                                'active': idx === currentPage,
-                                'bg-blue-50 border-blue-500 text-blue-600': true
-                            }">
+                                'bg-blue-50 border-blue-500 text-blue-600': idx === currentPage,
+                                'border-gray-300 bg-white text-blue-600': idx !== currentPage
+                            }"
+                            (click)="getFinancings(idx, 20)">
                             {{ idx + 1 }}
                         </button>
                         <button class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"

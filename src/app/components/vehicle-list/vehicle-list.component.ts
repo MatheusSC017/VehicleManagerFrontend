@@ -16,6 +16,7 @@ import { SaleStatus } from '../../enums/sale.enums';
 import { ErrorResponse } from '../../interfaces/error-response';
 import { MaintenanceService } from '../../services/maintenance.service';
 import { Maintenance } from '../../interfaces/maintenance';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -174,8 +175,8 @@ export class VehicleListComponent {
               this.getVehicles();
               this.closeSaleModal();
             },
-            error: error => {
-              const errorResponse = error.error as ErrorResponse<Sale>;
+            error: (httpError: HttpErrorResponse) => {
+              const errorResponse = httpError.error as ErrorResponse<Sale>;
               this.saleFormError = errorResponse?.errors ?? { general: 'Erro inesperado.' };
             }
           });
@@ -185,8 +186,9 @@ export class VehicleListComponent {
               this.getVehicles();
               this.closeSaleModal();
             },
-            error: error => {
-              const errorResponse = error.error as ErrorResponse<Sale>;
+            error: (httpError: HttpErrorResponse) => {
+              const errorResponse = httpError.error as ErrorResponse<Sale>;
+              console.log(errorResponse.errors);
               this.saleFormError = errorResponse?.errors ?? { general: 'Erro inesperado.' };
             }
           });

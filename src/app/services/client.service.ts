@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 import { Client } from '../interfaces/client';
+import { Pageable } from '../interfaces/pageable';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,12 @@ export class ClientService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Client[]> {
-    return this.http.get<Client[]>(`${this.apiUrl}/clients`);
+  getAll(page: number, size: number): Observable<Pageable<Client>> {
+    let params: any = {
+      'page': page,
+      'size': size
+    };
+    return this.http.get<Pageable<Client>>(`${this.apiUrl}/clients`, { params });
   }
 
   search(searchFor: string): Observable<Client[]> {

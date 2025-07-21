@@ -149,7 +149,7 @@
                                 </button>
 
                                 <button class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600" (click)="openSaleWindow(vehicle)">
-                                    <i class="fas fa-envelope"></i>
+                                    <i class="fas fa-dollar-sign"></i>
                                 </button>
 
                                 <a [routerLink]="['/veiculos', vehicle.id]">
@@ -177,9 +177,10 @@
                 </a> 
 
                 <a *ngFor="let i of [].constructor(totalPages); let idx = index" [routerLink]="['.']" [queryParams]="{ page: idx }" [queryParamsHandling]="'merge'"
+                class="px-4 py-2 border font-medium"
                 [ngClass]="{
-                    'active': idx === currentPage,
-                    'px-4 py-2 border-t border-b border-gray-300 bg-white text-blue-600 font-medium': true
+                    'bg-blue-50 border-blue-500 text-blue-600': idx === currentPage,
+                    'border-gray-300 bg-white text-blue-600': idx !== currentPage
                 }">{{ idx + 1 }}</a>
 
                 <a *ngIf="currentPage < totalPages - 1" [routerLink]="['.']" [queryParams]="{ page: currentPage + 1 }" [queryParamsHandling]="'merge'" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
@@ -213,6 +214,9 @@
                     </div>
 
                     <div class="mb-4">
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative" *ngIf="saleFormError.saleStatus">
+                            <label class="block text-sm">{{ saleFormError.saleStatus }}</label>
+                        </div>
                         <label for="saleStatus" class="block text-sm font-medium text-gray-700">Status</label>
                         <select
                             [(ngModel)]="selectedSale.status"
