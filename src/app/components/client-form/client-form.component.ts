@@ -47,7 +47,7 @@ export class ClientFormComponent {
 
   onSubmit(client: Client): void {
     if (this.id) {
-      
+      client.id = this.id;
       this.clientService.update(this.id, client).subscribe({
         next: (clientData: Client) => {
           this.router.navigate(['/clientes']);
