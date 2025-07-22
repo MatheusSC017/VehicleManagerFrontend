@@ -38,13 +38,6 @@ export class FinancingListComponent {
     this.getFinancings(0, 20);
   }
 
-  deleteFinancing(financingId: number): void {
-    this.financingService.delete(financingId).subscribe({
-      next: () => this.getFinancings(0, 20),
-      error: (err) => console.error(err)
-    });
-  }
-
   getFinancings(page: number, size: number): void {
     this.financingService.getAll(page, size).subscribe(data => {
       this.financings = data.content;

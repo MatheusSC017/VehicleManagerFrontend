@@ -40,8 +40,4 @@ export class FinancingService {
     return this.http.patch<void>(`${this.apiUrl}/financings/${financingId}/status`, financingRequest);
   }
 
-  delete(financingId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/financings/${financingId}`);
-  }
-
 }
