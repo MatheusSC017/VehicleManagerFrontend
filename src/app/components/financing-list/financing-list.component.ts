@@ -4,10 +4,13 @@ import { FinancingService } from '../../services/financing.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule } from '@angular/router';
 import { FinancingStatus } from '../../enums/financing.enums';
+import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorResponse } from '../../interfaces/error-response';
 
 @Component({
   selector: 'app-financing-list',
-  imports: [CommonModule, RouterModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterModule, RouterLink],
   templateUrl: './financing-list.component.html',
   styleUrl: './financing-list.component.css'
 })
@@ -15,12 +18,16 @@ export class FinancingListComponent {
   financings: Financing[] = [];
   currentPage: number = 0;
   totalPages: number = 1;
+  showStatusModal: boolean = false;
+  selectedFinancing: number = 0;
+  financingStatus: string = 'DRAFT';
+  updateStatusError: any = {};
 
   financingStatusList = Object.entries(FinancingStatus);
 
   financingStatusMap: { [key: string]: string } = {
+    DRAFT: FinancingStatus.DRAFT,
     ACTIVE: FinancingStatus.ACTIVE,
-    PAID_OFF: FinancingStatus.PAID_OFF,
     DEFAULTED: FinancingStatus.DEFAULTED,
     CANCELED: FinancingStatus.CANCELED
   };
@@ -44,6 +51,30 @@ export class FinancingListComponent {
       this.totalPages = data.totalPages;
       this.currentPage = data.number;
     })
+  }
+
+  openStatusModal(financingId: number): void {
+    this.selectedFinancing = financingId;
+    this.financingStatus = 'DRAFT';
+    this.showStatusModal = true;
+    this.updateStatusError = {};
+  }
+
+  closeStatusModal(): void {
+    this.showStatusModal = false;
+  }
+
+  updateStatus(): void {
+    this.financingService.updateStatus(this.selectedFinancing, this.financingStatus).subscribe({
+      next: response => {
+        this.getFinancings(0, 20);
+        this.closeStatusModal();
+      },
+      error: (httpError: HttpErrorResponse) => {
+        const errorResponse = httpError.error as ErrorResponse<Financing>;
+        this.updateStatusError = errorResponse?.errors ?? { general: 'Erro inesperado.' };
+      }
+    });
   }
 
 }

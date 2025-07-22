@@ -1,6 +1,6 @@
 export enum FinancingStatus {
+  DRAFT = 'Em acolhimento',
   ACTIVE = 'Ativo',
-  PAID_OFF = 'Atrasado',
   DEFAULTED = 'Liquidado',
   CANCELED = 'Cancelado'
 }

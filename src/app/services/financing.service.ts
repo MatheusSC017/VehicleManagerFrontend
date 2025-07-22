@@ -33,6 +33,13 @@ export class FinancingService {
     return this.http.put<Financing>(`${this.apiUrl}/financings/${financingId}`, financing);
   }
 
+  updateStatus(financingId: number, status: String): Observable<void> {
+    let financingRequest: any = {
+      'status': status,
+    };
+    return this.http.patch<void>(`${this.apiUrl}/financings/${financingId}/status`, financingRequest);
+  }
+
   delete(financingId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/financings/${financingId}`);
   }

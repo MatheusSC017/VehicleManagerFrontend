@@ -122,7 +122,7 @@ export class FinancingFormComponent {
           annualInterestRate: financing.annualInterestRate,
           contractDate: financing.contractDate,
           firstInstallmentDate: financing.firstInstallmentDate,
-          financingStatus: financing.financingStatus,
+          financingStatus: '',
         };
         
         if (this.id) {

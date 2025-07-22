@@ -16,8 +16,8 @@ export class FinancingDetailComponent {
   financing!: Financing;
 
   financingStatusMap: { [key: string]: string } = {
+      DRAFT: FinancingStatus.DRAFT,
       ACTIVE: FinancingStatus.ACTIVE,
-      PAID_OFF: FinancingStatus.PAID_OFF,
       DEFAULTED: FinancingStatus.DEFAULTED,
       CANCELED: FinancingStatus.CANCELED
     };
