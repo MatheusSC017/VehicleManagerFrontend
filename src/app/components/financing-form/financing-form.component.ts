@@ -25,15 +25,7 @@ export class FinancingFormComponent {
   id!: number;
   currentVehicle!: VehicleMinimal;
   serverErrors: any = {};
-
-  showClientSearch: boolean = false;
-  searchClientQuery: string = '';
-  clients: Client[] = [];
-
-  showVehicleSearch: boolean = false;
-  searchVehicleQuery: string = '';
-  vehicles: Vehicle[] = [];
-
+  
   financingInterface: Financing = {
     id: 0,
     client: {
@@ -58,6 +50,8 @@ export class FinancingFormComponent {
     firstInstallmentDate: '',
     financingStatus: '',
   };
+  firstInstallmentDateFormatted: string = '';
+  contractDateFormatted: string = '';
 
   financingStatusList = Object.entries(FinancingStatus);
 
@@ -78,6 +72,9 @@ export class FinancingFormComponent {
       this.financingService.get(this.id).subscribe({
         next: data => {
           this.financingInterface = data;
+          this.firstInstallmentDateFormatted = this.parseToBR(data.firstInstallmentDate) || '';
+          this.contractDateFormatted = this.parseToBR(data.contractDate) || '';
+
           this.currentVehicle = this.financingInterface.vehicle;
         },
         error: (err) => {
@@ -179,6 +176,44 @@ export class FinancingFormComponent {
     }
   }
 
+  // Date format
+  parseToBR(usDate: string): string | null {
+    const [_, year, month, day] = usDate.match(/^(\d{4})-(\d{2})-(\d{2})$/) || [];
+    return year && month && day ? `${day}/${month}/${year}` : null;
+  }
+
+  parseFromBR(brDate: string): string | null {
+    const [_, day, month, year] = brDate.match(/^(\d{2})\/(\d{2})\/(\d{4})$/) || [];
+    return year && month && day ? `${year}-${month}-${day}` : null;
+  }
+
+  onInstallmentDateInput(): void {
+    const parsed = this.parseFromBR(this.firstInstallmentDateFormatted);
+    if (parsed) {
+      delete this.serverErrors.firstInstallmentDate;
+      this.financingInterface.firstInstallmentDate = parsed;
+    } else {
+      this.serverErrors.firstInstallmentDate = 'Insira uma data válida';
+      this.financingInterface.firstInstallmentDate = '';
+    }
+  }
+
+  onContractDateInput(): void {
+    const parsed = this.parseFromBR(this.contractDateFormatted);
+    if (parsed) {
+      delete this.serverErrors.contractDate;
+      this.financingInterface.contractDate = parsed;
+    } else {
+      this.serverErrors.contractDate = 'Insira uma data válida';
+      this.financingInterface.contractDate = '';
+    }
+  }
+
+  // Client Search Modal
+  showClientSearch: boolean = false;
+  searchClientQuery: string = '';
+  clients: Client[] = [];
+
   openClientSearch(): void {
     this.clients = [];
     this.searchClientQuery = '';
@@ -201,6 +236,11 @@ export class FinancingFormComponent {
     this.financingInterface.client = client;
     this.showClientSearch = false;
   }
+
+  // Vehicle Search Modal
+  showVehicleSearch: boolean = false;
+  searchVehicleQuery: string = '';
+  vehicles: Vehicle[] = [];
 
   openVehicleSearch(): void {
     this.vehicles = [];

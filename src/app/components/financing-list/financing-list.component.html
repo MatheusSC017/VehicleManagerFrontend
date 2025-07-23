@@ -61,8 +61,8 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.installmentCount }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.installmentValue }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.annualInterestRate }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.contractDate }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.firstInstallmentDate }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.contractDate | date:'dd/MM/yyyy' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ financing.firstInstallmentDate | date:'dd/MM/yyyy' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                                     [ngClass]="{
