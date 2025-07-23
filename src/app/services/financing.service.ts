@@ -25,6 +25,10 @@ export class FinancingService {
     return this.http.get<Financing>(`${this.apiUrl}/financings/${financingId}`)
   }
 
+  getByVehicleId(vehicleId: number): Observable<Financing> {
+    return this.http.get<Financing>(`${this.apiUrl}/financings/vehicle/${vehicleId}`)
+  }
+
   create(financing: Financing): Observable<Financing> {
     return this.http.post<Financing>(`${this.apiUrl}/financings`, financing);
   }

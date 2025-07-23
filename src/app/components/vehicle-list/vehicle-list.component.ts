@@ -17,6 +17,8 @@ import { ErrorResponse } from '../../interfaces/error-response';
 import { MaintenanceService } from '../../services/maintenance.service';
 import { Maintenance } from '../../interfaces/maintenance';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FinancingService } from '../../services/financing.service';
+import { Financing } from '../../interfaces/financing';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -33,6 +35,7 @@ export class VehicleListComponent {
     status: 'SOLD'
   };
   sales: Sale[] = [];
+  financedVehicle: Financing | null = null;
 
   showMaintenanceModal: boolean = false;
   maintenances: Maintenance[] = [];
@@ -81,7 +84,8 @@ export class VehicleListComponent {
     private vehicleService: VehicleService,
     private clientService: ClientService,
     private saleService: SaleService,
-    private maintenanceService: MaintenanceService
+    private maintenanceService: MaintenanceService,
+    private financingService: FinancingService
   ){}
 
   ngOnInit(): void {
@@ -142,12 +146,21 @@ export class VehicleListComponent {
       status: 'SOLD'
     };
     this.saleRegister = true;
+    this.financedVehicle = null;
     this.saleService.getAllByVehicle(vehicle.id).subscribe({
       next: sales => {
         this.sales = sales;
         if (sales.length > 0 && sales[0].status != 'CANCELED') {
           this.saleRegister = false;
           this.selectedSale = Object.assign({}, sales[0]);
+        } else {
+          this.financingService.getByVehicleId(vehicle.id).subscribe({
+            next: response => {
+              if (response != null) {
+                this.financedVehicle = response;
+              }
+            }
+          })
         }
       }
     })

@@ -194,7 +194,22 @@
     <div class="fixed z-50 inset-0 overflow-y-auto" *ngIf="showSaleModal">
         <div class="flex items-center justify-center min-h-screen px-4">
             <div class="fixed inset-0 bg-black opacity-30" (click)="closeSaleModal()"></div>
-            <div class="bg-white rounded-lg shadow-lg z-10 p-6 w-full max-w-md">
+            <div class="bg-white rounded-lg shadow-lg z-10 p-6 w-full max-w-md" *ngIf="financedVehicle">
+                <h2 class="text-xl font-semibold mb-4">Veículo vendido através de financiamento</h2>
+                <div class="mt-4 max-h-64 overflow-y-auto border border-gray-200 rounded-md p-3 space-y-3">
+                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
+                        <p><strong>Cliente:</strong> {{ financedVehicle.client.firstName }} {{ financedVehicle.client.lastName }}</p>
+                        <p><strong>Valor total:</strong> R$ {{ financedVehicle.totalAmount }}</p>
+                        <p><strong>Entrada:</strong> R$ {{ financedVehicle.downPayment }}</p>
+                        <p><strong>Prazo:</strong> {{ financedVehicle.installmentCount }}</p>
+                        <p><strong>Parcela:</strong> R$ {{ financedVehicle.installmentValue }}</p>
+                        <p><strong>Taxa de Juros:</strong> {{ financedVehicle.annualInterestRate }}%</p>
+                        <p><strong>Data do contrato:</strong> {{ financedVehicle.contractDate | date:'dd/MM/yyyy' }}</p>
+                        <p><strong>Data de pagamento:</strong> {{ financedVehicle.firstInstallmentDate | date:'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg z-10 p-6 w-full max-w-md" *ngIf="!financedVehicle">
                 <h2 class="text-xl font-semibold mb-4">{{ selectedVehicle?.vehicleStatus === 'AVAILABLE' ? 'Nova venda' : 'Atualizando última venda' }} para {{ selectedVehicle?.brand }} {{ selectedVehicle?.model }}</h2>
 
                 <form (ngSubmit)="manageSale(saleForm.value)" #saleForm="ngForm">
@@ -243,7 +258,7 @@
                         </button>
                     </div>
                     
-                    <h2 class="text-xl font-semibold mb-4">Histórico</h2>
+                    <h2 *ngIf="sales.length > 0" class="text-xl font-semibold mb-4">Histórico</h2>
 
                     <div *ngIf="sales.length > 0" class="mt-4 max-h-64 overflow-y-auto border border-gray-200 rounded-md p-3 space-y-3">
                         <div *ngFor="let sale of sales" class="border-b pb-2">
