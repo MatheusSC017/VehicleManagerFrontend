@@ -18,15 +18,15 @@ export class MaintenanceService {
       'page': page,
       'size': size
     };
-    return this.http.get<Pageable<Maintenance>>(`${this.apiUrl}/maintenance`, { params });
+    return this.http.get<Pageable<Maintenance>>(`${this.apiUrl}/maintenances`, { params });
   }
 
   getAllByVehicle(vehicleId: number): Observable<Maintenance[]> {
-    return this.http.get<Maintenance[]>(`${this.apiUrl}/maintenance/vehicle/${vehicleId}`,);
+    return this.http.get<Maintenance[]>(`${this.apiUrl}/maintenances/vehicle/${vehicleId}`,);
   }
 
   get(saleId: number): Observable<Maintenance> {
-    return this.http.get<Maintenance>(`${this.apiUrl}/maintenance/${saleId}`)
+    return this.http.get<Maintenance>(`${this.apiUrl}/maintenances/${saleId}`)
   }
 
   create(vehicleId: number, additionalInfo: string): Observable<Maintenance> {
@@ -34,11 +34,11 @@ export class MaintenanceService {
       'vehicleId': vehicleId,
       'additionalInfo': additionalInfo
     };
-    return this.http.post<Maintenance>(`${this.apiUrl}/maintenance`, requestBody);
+    return this.http.post<Maintenance>(`${this.apiUrl}/maintenances`, requestBody);
   }
 
   delete(maintenanceId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/maintenance/${maintenanceId}`);
+    return this.http.delete<void>(`${this.apiUrl}/maintenances/${maintenanceId}`);
   }
 
 }
