@@ -76,6 +76,10 @@ export class FinancingFormComponent {
           this.contractDateFormatted = this.parseToBR(data.contractDate) || '';
 
           this.currentVehicle = this.financingInterface.vehicle;
+          if (this.financingInterface.financingStatus != 'DRAFT') {
+            this.router.navigate(['/financiamentos']);
+          }
+          
         },
         error: (err) => {
           this.router.navigate(['/financiamentos']);
@@ -117,8 +121,8 @@ export class FinancingFormComponent {
           installmentCount: financing.installmentCount,
           installmentValue: financing.installmentValue,
           annualInterestRate: financing.annualInterestRate,
-          contractDate: financing.contractDate,
-          firstInstallmentDate: financing.firstInstallmentDate,
+          contractDate: this.financingInterface.contractDate,
+          firstInstallmentDate: this.financingInterface.firstInstallmentDate,
           financingStatus: '',
         };
         
