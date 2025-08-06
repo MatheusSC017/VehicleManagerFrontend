@@ -1,63 +1,108 @@
 # VehicleManager (Frontend)
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+An intuitive user interface for managing vehicles, clients, finances, sales, and maintenance records.
+
+---
+
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Configuration](#configuration)
+* [Features](#features)
+* [Backend Integration](#backend-integration)
+* [License](#license)
+
+---
+
+## About the Project
+
 This project is the Angular frontend for the Vehicle Manager API, a complete vehicle dealership management system. It provides an intuitive user interface for managing vehicles, clients, finances, sales, and maintenance records.
 
-| Generated with [Angular CLI](https://github.com/angular/angular-cli) version 19.2.14.
+### Built With
 
-## Development server
+* [Angular](https://angular.io/)
+* [Angular CLI](https://github.com/angular/angular-cli)
+* [TypeScript](https://www.typescriptlang.org/)
 
-To start a local development server:
+---
 
-```bash
-ng serve
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+* **Node.js**: [Download and Install Node.js](https://nodejs.org/en/download/)
+* **Angular CLI**: Install globally using npm:
+  ```sh
+  npm install -g @angular/cli
+  ```
+
+### Installation
+
+1.  **Clone the repo**
+    ```sh
+    git clone https://github.com/your_username/vehicle-manager-frontend.git
+    ```
+2.  **Install NPM packages**
+    ```sh
+    npm install
+    ```
+3.  **Run the development server**
+    ```sh
+    ng serve
+    ```
+    Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+---
+
+## Configuration
+
+The application's backend API URL can be configured in the `src/environment/environment.ts` file.
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080/api',
+  baseUrl: 'http://localhost:8080'
+};
 ```
 
-Once the server is running, open your browser and navigate to: http://localhost:4200
+---
 
-The app will automatically reload when you modify any source file.
+## Features
 
-## Building
+*   **Vehicle Management**: Add, edit, and view vehicle details including images.
+*   **Client Management**: Keep track of all your clients and their information.
+*   **Financing**: Manage financing details for vehicle sales.
+*   **Sales Records**: Log and view sales records.
+*   **Maintenance Logs**: Keep a record of vehicle maintenance history.
+*   **User Authentication**: Secure login and registration for users.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Backend Integration
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This frontend is designed to work with the [Vehicle Manager API](https://github.com/your_username/vehicle-manager-api). The backend is a Spring Boot application that provides a RESTful API for all the features mentioned above.
 
-## Running unit tests
+Key backend features include:
+*   JWT authentication
+*   Scalable architecture
+*   Comprehensive data models for vehicles, clients, sales, and more.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+For more information, please refer to the backend project's `README.md`.
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## License
 
-For end-to-end (e2e) testing, run:
+Distributed under the MIT License. See `LICENSE` for more information.
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## 🔒 Backend Integration
-
-This frontend communicates with the Vehicle Manager API, a Spring Boot RESTful backend that supports:
-
-* 🔐 JWT authentication
-
-* 🚗 Vehicle inventory management
-
-* 🧾 Client and sales record tracking
-
-* 💰 Finance and transaction logs
-
-* 🔧 Vehicle maintenance history
-
-The API is designed for secure, scalable integration across dashboards, mobile apps, or dealer systems.
-
-| For full backend documentation, see the Vehicle Manager API README.
