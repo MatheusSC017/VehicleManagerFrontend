@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environment/environment';
+import { environment } from '@env/environment';
 import { Vehicle } from '../interfaces/vehicle';
 import { VehicleMultImages } from '../interfaces/vehicle-mult-images';
 import { Pageable } from '../interfaces/pageable';

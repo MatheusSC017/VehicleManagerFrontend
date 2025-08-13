@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterModule, RouterLink, Router } from '@angular/router';
 import { VehicleService } from '../../services/vehicle.service';
-import { environment } from '../../../environment/environment';
+import { environment } from '@env/environment';
 import { VehicleStatus, VehicleChange, VehicleFuel, VehicleType } from '../../enums/vehicle.enums';
 import { VehicleMultImages } from '../../interfaces/vehicle-mult-images';
 import { CommonModule } from '@angular/common';

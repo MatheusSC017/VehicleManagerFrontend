@@ -7,7 +7,7 @@ import { VehicleMultImages } from '../../interfaces/vehicle-mult-images';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { ToggleService } from '../../shared/toggle.service';
 import { ImagePreviewService } from '../../shared/image-preview.service';
-import { environment } from '../../../environment/environment';
+import { environment } from '@env/environment';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorResponse } from '../../interfaces/error-response';
 import { FileService } from '../../services/file.service';

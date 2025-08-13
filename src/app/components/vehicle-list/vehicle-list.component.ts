@@ -4,7 +4,7 @@ import { VehicleService } from '../../services/vehicle.service';
 import { VehicleType, VehicleStatus, VehicleFuel, VehicleChange } from '../../enums/vehicle.enums';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, RouterLink, Router } from '@angular/router';
-import { environment } from '../../../environment/environment';
+import { environment } from '@env/environment';
 import { Vehicle } from '../../interfaces/vehicle';
 import { VehicleFilters } from '../../interfaces/vehicle-filters';
 import { SaleService } from '../../services/sale.service';

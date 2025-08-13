@@ -5,7 +5,7 @@ import { Sale } from '../interfaces/sale';
 import { Pageable } from '../interfaces/pageable';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environment/environment';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'

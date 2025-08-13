@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environment/environment';
+import { environment } from '@env/environment';
 import { Client } from '../interfaces/client';
 import { Pageable } from '../interfaces/pageable';
 
@@ -9,7 +9,7 @@ import { Pageable } from '../interfaces/pageable';
   providedIn: 'root'
 })
 export class ClientService {
-   private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
